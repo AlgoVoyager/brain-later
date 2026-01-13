@@ -16,12 +16,18 @@ const User = new mongoose.Schema({
 const Content = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String },
+    tags: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Tag'
+    }],
     userId: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 
         required: true 
     }
 });
+
+
 
 const userModel = mongoose.model('User',User);
 const contentModel = mongoose.model('Content',Content);
