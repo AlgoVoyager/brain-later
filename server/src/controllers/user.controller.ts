@@ -79,7 +79,14 @@ const signUpUser: RequestHandler = async (req, res) => {
     }
 
 }
+const deleteUser: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    await userModel.deleteOne({_id:userId});
+    await linkModel.deleteOne({userId});
+    res.json({message:"User Deleted Succesfully"})
+}
 export {
     signInUser,
-    signUpUser
+    signUpUser,
+    deleteUser
 }
