@@ -1,8 +1,11 @@
 import express from "express";
-import { authenticateUser } from "../../middlewares/user.middleware.js";
-import { createShare } from "../../controllers/brain.controller.js";
+import { authenticateUser, authoriseUser } from "../../middlewares/user.middleware.js";
+import { getShare, updateShare, shareContents } from "../../controllers/brainlink.controller.js";
 const brainRouter = express.Router();
 
-brainRouter.post('/',authenticateUser, createShare);
+brainRouter.get('/share', authenticateUser, getShare);
+brainRouter.post('/share', authenticateUser, updateShare);
+
+brainRouter.get('/:hash', authoriseUser, shareContents);
 
 export default brainRouter;

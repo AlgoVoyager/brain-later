@@ -2,8 +2,9 @@ import { RequestHandler } from "express";
 import z from "zod";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { userModel } from "../utils/db.js"
+import { linkModel, userModel } from "../utils/db.js"
 import { JWT_USER_SECRET } from "../utils/config.js";
+import { generateHash } from "../utils/hashGenerator.js";
 const signInUser: RequestHandler = async (req, res) => {
     const signinSchema = z.object({
         email: z.email(),
@@ -61,10 +62,18 @@ const signUpUser: RequestHandler = async (req, res) => {
         const user = await userModel.findOne({ email });
         if (user) return res.status(409).json({ message: "user Already Exist" });
         const hashedPassword = await bcryptjs.hash(password, 10);
-        userModel.create({
+        const createdUser = await userModel.create({
             firstname, lastname, email, password: hashedPassword
         })
-        res.json("User Created Succesfully")
+        const shareHash = generateHash();
+        await linkModel.create({
+            hash:shareHash,
+            //@ts-ignore
+            userId:createdUser._id
+        })
+        res.json({
+            message:"User Created Succesfully",
+        })
     } catch (error) {
         res.status(501).json("Internal server error");
     }

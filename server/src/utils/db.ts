@@ -8,40 +8,47 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
 };
 const User = new mongoose.Schema({
-    firstname : { type : String, required : true },
-    lastname : { type : String },
-    email : {type: String, required:true, unique:true},
-    password : {type: String, required:true}
+    firstname: { type: String, required: true },
+    lastname: { type: String },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }
 })
 
 const Content = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String },
-    link : { type: String },
-    type : { type: String },
+    link: { type: String },
+    type: { type: String },
     tags: [{
         type: mongoose.Types.ObjectId,
         ref: 'Tag'
     }],
-    userId: { 
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', 
-        required: true 
+        ref: 'User',
+        required: true
     }
 });
 
 const Link = new mongoose.Schema({
-    hash:{type: String, required: true},
-    userId: { 
+    hash: { type: String, required: true, unique: true },
+    userId: {
         type: mongoose.Types.ObjectId,
-        ref: 'User', 
-        required: true 
+        ref: 'User',
+        required: true
+    },
+    publicSharing: {
+        type: [{
+            type: mongoose.Types.ObjectId,
+            ref: 'Content'
+        }],
+        default: []
     }
 })
 
-const userModel = mongoose.model('User',User);
-const contentModel = mongoose.model('Content',Content);
-const linkModel = mongoose.model('Link',Link);
+const userModel = mongoose.model('User', User);
+const contentModel = mongoose.model('Content', Content);
+const linkModel = mongoose.model('Link', Link);
 
 export {
     userModel,
