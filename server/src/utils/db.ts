@@ -30,12 +30,22 @@ const Content = new mongoose.Schema({
     }
 });
 
-
+const Link = new mongoose.Schema({
+    hash:{type: String, required: true},
+    userId: { 
+        type: mongoose.Types.ObjectId,
+        ref: 'User', 
+        required: true 
+    }
+})
 
 const userModel = mongoose.model('User',User);
 const contentModel = mongoose.model('Content',Content);
+const linkModel = mongoose.model('Link',Link);
+
 export {
     userModel,
     contentModel,
+    linkModel,
     connectDB
 }

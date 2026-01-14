@@ -56,6 +56,27 @@ const updateContent : RequestHandler = async (req, res)=> {
         res.status(501).json({message:"Internal Server Error"})
     }
 }
+const getContent : RequestHandler = async (req, res) => {
+    //@ts-ignore
+    const userId = req.userId;
+    const contents = await contentModel.find({
+        userId
+    }).populate("userId","firstname")
+    
+    res.json({
+        contents
+    });
+}
+const deleteContent : RequestHandler = async (req, res) => {
+    //@ts-ignore
+    const userId = req.userId;
+    const {contentId} = req.body;
+    if(!contentId) res.status(406).json({message:"Content doesn't exist!"})
+    await contentModel.deleteOne({_id:contentId});
+    res.json({
+        message:"Content Deleted succesfully!"
+    });
+}
 const testContent : RequestHandler = async (req, res) => {
     //@ts-ignore
     const token = req.userId;
@@ -66,5 +87,7 @@ const testContent : RequestHandler = async (req, res) => {
 export {
     createContent,
     updateContent,
+    deleteContent,
+    getContent,
     testContent
 }
