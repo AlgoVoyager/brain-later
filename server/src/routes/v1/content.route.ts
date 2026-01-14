@@ -1,7 +1,10 @@
 import express from "express";
 const contentRouter = express.Router();
-// import { testFunc } from "../../controllers/user.controller.js";
+import { createContent, updateContent, testContent } from '../../controllers/content.controller.js'
+import { authenticateUser, authoriseUser } from "../../middlewares/user.middleware.js";
 
-// contentRouter.get('/test', testFunc);
+contentRouter.post('/', authenticateUser, createContent)
+contentRouter.put('/', authenticateUser, updateContent)
+contentRouter.post('/test', authoriseUser, testContent)
 
 export default contentRouter;

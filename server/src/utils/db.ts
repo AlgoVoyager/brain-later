@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv"
+import { MONGO_URI } from "./config.js";
 dotenv.config()
 
 const connectDB = async () => {
-    const conn = await mongoose.connect('mongodb://localhost:27017/brain-later');
+    const conn = await mongoose.connect(MONGO_URI || '');
     console.log(`MongoDB Connected: ${conn.connection.host}`);
 };
 const User = new mongoose.Schema({
@@ -16,6 +17,8 @@ const User = new mongoose.Schema({
 const Content = new mongoose.Schema({
     title: { type: String, required: true },
     description: { type: String },
+    link : { type: String },
+    type : { type: String },
     tags: [{
         type: mongoose.Types.ObjectId,
         ref: 'Tag'
