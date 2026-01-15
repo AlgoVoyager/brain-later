@@ -1,7 +1,17 @@
-
+import Button from "./components/ui/Button"
+import {CirclePlus} from "lucide-react"
 const App = () => {
   return (
-    <div className="text-green-500 bg-black">App</div>
+    <>
+      <Button
+        text="Click"
+        size="lg"
+        variant="primary"
+        pIcon={<CirclePlus />}
+        sIcon={<CirclePlus />}
+        onClick={()=>{}}
+      />
+    </>
   )
 }
 
