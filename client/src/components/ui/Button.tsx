@@ -1,13 +1,4 @@
-import React from 'react'
-
-export interface ButtonProps {
-    variant: "primary" | "secondary";
-    size: "sm" | "md" | "lg" | "xl";
-    text: string;
-    pIcon: any;
-    sIcon: any;
-    onClick: () => void;
-}
+import type { ButtonProps } from "../../utils/types"
 
 const Button = (props: ButtonProps) => {
 
@@ -23,8 +14,10 @@ const Button = (props: ButtonProps) => {
     }
 
     return (
-        <button className={`${variantClasses[props.variant]} ${sizeClasses[props.size]}  border rounded-xl flex items-center gap-2`} onClick={props.onClick}>
+        <button className={ `${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]}  border rounded-xl flex items-center gap-2 `} onClick={props.onClick}>
+            {props?.pIcon}
             {props.text} 
+            {props?.sIcon}
         </button>
     )
 }

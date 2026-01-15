@@ -1,16 +1,18 @@
-import Button from "./components/ui/Button"
-import {CirclePlus} from "lucide-react"
+import SideBar from "./components/shared/SideBar"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import HomePage from "./pages/HomePage"
 const App = () => {
+ 
   return (
     <>
-      <Button
-        text="Click"
-        size="lg"
-        variant="primary"
-        pIcon={<CirclePlus />}
-        sIcon={<CirclePlus />}
-        onClick={()=>{}}
-      />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SideBar/>}>
+          <Route index element={<HomePage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
     </>
   )
 }
