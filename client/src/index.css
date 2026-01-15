@@ -1,3 +1,124 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.nlink{
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 20px 0 0 20px;
+}
+
+.activeNavlink{
+    background-color: #E6E9ED;
+    position: relative;
+}
+
+.activeNavlink::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -1px;
+    width: 35px;
+    height: 50px;
+    background-color: transparent;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 10px 0 0 #E6E9ED;
+}
+
+.activeNavlink::after {
+    content: "";
+    transform: rotateX(180deg);
+    position: absolute;
+    bottom: -50px;
+    right: -1px;
+    width: 35px;
+    height: 50px;
+    background-color: transparent;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 10px 0 0 #E6E9ED;
+}
+
+.inActiveNavlink:hover{
+    position: relative;
+    background-color: #f4f4f4;
+    /* transition: all 0.1s ease-in; */
+}
+
+.inActiveNavlink::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -1px;
+    width: 35px;
+    height: 50px;
+    background-color: transparent;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 10px 0 0 #f4f4f4;
+    transition: all 0.1s ;
+
+}
+
+.inActiveNavlink::after {
+    content: "";
+    transform: rotateX(180deg);
+    position: absolute;
+    bottom: -50px;
+    right: -1px;
+    width: 35px;
+    height: 50px;
+    background-color: transparent;
+    border-bottom-right-radius: 15px;
+    box-shadow: 0 10px 0 0 #f4f4f4;
+    transition: all 0.1s ease-in;
+}
+
+
+.addContentWindow{
+    @apply relative flex flex-col items-center justify-center
+}
+.expandAnimation{
+    animation: expandAddWindow 0.2s ease-in-out forwards;
+}
+
+@keyframes expandAddWindow {
+    from {
+        width: 10rem;
+        height: 2.5rem;
+        position: absolute;
+        right: -41px;
+       top: -41px;
+        border-radius: 70% 0px 100% 250%;
+        /* border: 2px solid #f2f2f2; */
+    }
+    to{
+       width: 100vw;
+       height: 100vh;
+       backdrop-filter: blur(7px);
+       position: absolute;
+       background-color: #91959b7b ;
+       right: -41px;
+       top: -41px;
+       content: normal;
+       border-radius: 0px 0px 0px 0px;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        /* justify-content: center; */
+    }
+}
+
+.addContentForm{
+    visibility: hidden;
+    animation: visibleAnimation  0.5s ease-in 0.2s forwards;
+}
+
+@keyframes visibleAnimation {
+    from{
+        visibility: hidden;
+    }
+    to{
+        visibility: visible;
+    }
+    
+}
