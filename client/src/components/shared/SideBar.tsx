@@ -30,7 +30,7 @@ const SideBar = () => {
         },
     ]
     return (
-        <div className='flex h-screen'>
+        <div className='flex '>
             <div className="sidebar w-1/5 flex flex-col gap-3 py-10 pl-2 border-r-4">
                 <div className="logo mx-auto flex gap-2 items-center">
                     <Brain size={40} />
@@ -44,7 +44,7 @@ const SideBar = () => {
                     ))}
                 </nav>
             </div>
-            <div className="main w-4/5 bg-slate-100">
+            <div className="main w-4/5 flex items-center justify-center bg-slate-100">
                 <Outlet />
             </div>
         </div>

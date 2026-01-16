@@ -30,7 +30,7 @@ const AddContentForm = () => {
   ]
   const [Tags, setTags] = useState(tags);
   const handleContentAdd = () =>{
-    
+
   }
   return (
     <div className="addContentForm bg-white border-4 p-5 rounded-2xl w-1/2 translate-y-1/4 translate-x-1/2 relative flex flex-col items-center justify-center gap-1">
@@ -45,7 +45,11 @@ const AddContentForm = () => {
           <label htmlFor={item} className='flex gap-1 items-center'>
             <input type="radio" id={item} name='content-type' value={item}
               checked={form.type === item}
-              onClick={(e) => setform({ ...form, type: e.target.value })} />
+              onClick={(e) => setform({ 
+                ...form, 
+                //@ts-ignore
+                type: e.target.value 
+              })} />
             <span>{item}</span>
           </label>
         ))}
