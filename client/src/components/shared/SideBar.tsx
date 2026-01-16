@@ -23,15 +23,17 @@ const SideBar = () => {
             href: "/settings",
             icon: <Settings />
         },
-        {
-            text: "Profile",
-            href: "/profile",
-            icon: <User2 />
-        },
+        // {
+        //     text: "Profile",
+        //     href: "/profile",
+        //     icon: <User2 />
+        // },
     ]
+    const token = localStorage.getItem('token');
+
     return (
         <div className='flex '>
-            <div className="sidebar w-1/5 flex flex-col gap-3 py-10 pl-2 border-r-4">
+            <div className="sidebar w-1/5 h-screen flex flex-col gap-3 py-10 pl-2 border-r-4">
                 <div className="logo mx-auto flex gap-2 items-center">
                     <Brain size={40} />
                     <h1 className='text-4xl font-bold'>Brain Later</h1>

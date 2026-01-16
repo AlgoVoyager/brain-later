@@ -44,7 +44,7 @@
     /* transition: all 0.1s ease-in; */
 }
 
-.inActiveNavlink::before {
+/* .inActiveNavlink::before {
     content: "";
     position: absolute;
     top: -50px;
@@ -70,7 +70,7 @@
     border-bottom-right-radius: 15px;
     box-shadow: 0 10px 0 0 #f4f4f4;
     transition: all 0.1s ease-in;
-}
+} */
 
 
 .addContentWindow{
@@ -84,9 +84,9 @@
     from {
         width: 10rem;
         height: 2.5rem;
-        position: absolute;
+        position: fixed;
         right: -41px;
-       top: -41px;
+        top: -71px;
         border-radius: 70% 0px 100% 250%;
         /* border: 2px solid #f2f2f2; */
     }
@@ -94,11 +94,13 @@
        width: 100vw;
        height: 100vh;
        backdrop-filter: blur(7px);
-       position: absolute;
+       position: fixed;
        background-color: #91959b7b ;
-       right: -41px;
-       top: -41px;
-       content: normal;
+       /* right: -41px;
+       top: -71px; */
+       top: 0;
+       right: 0;
+       /* content: normal; */
        border-radius: 0px 0px 0px 0px;
         border: none;
         display: flex;
