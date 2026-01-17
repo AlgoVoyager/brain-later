@@ -8,8 +8,7 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
 };
 const User = new mongoose.Schema({
-    firstname: { type: String, required: true },
-    lastname: { type: String },
+    fullname: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
 })

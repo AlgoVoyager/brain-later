@@ -42,8 +42,7 @@ const signInUser: RequestHandler = async (req, res) => {
 }
 const signUpUser: RequestHandler = async (req, res) => {
     const signupSchema = z.object({
-        firstname: z.string().min(3).max(30),
-        lastname: z.string().min(3).max(30),
+        fullname: z.string().min(3).max(50),
         email: z.email(),
         password: z.string().min(6).refine((p) => /[A-Z]/.test(p) && /[a-z]/.test(p) && /[0-9]/.test(p) && /[^A-Za-z0-9]/.test(p), {
             message: "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
@@ -58,12 +57,12 @@ const signUpUser: RequestHandler = async (req, res) => {
         })
     }
     try {
-        const { firstname, lastname, email, password } = parsedBody.data;
+        const { fullname, email, password } = parsedBody.data;
         const user = await userModel.findOne({ email });
         if (user) return res.status(409).json({ message: "user Already Exist" });
         const hashedPassword = await bcryptjs.hash(password, 10);
         const createdUser = await userModel.create({
-            firstname, lastname, email, password: hashedPassword
+            fullname, email, password: hashedPassword
         })
         const shareHash = generateHash();
         await linkModel.create({

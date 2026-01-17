@@ -6,7 +6,7 @@ const shareContents: RequestHandler = async (req, res) => {
     const hash = req.params.hash;
     const sharedContents = await linkModel.findOne({ hash })
     .populate("publicSharing")
-    .populate("userId","firstname lastname email");
+    .populate("userId","fullname");
 
     res.json({
         sharedContents
@@ -14,7 +14,9 @@ const shareContents: RequestHandler = async (req, res) => {
 }
 const getShare: RequestHandler = async (req, res) => {
     const userId = (req as any).userId;
-    const shareLink = await linkModel.findOne({ userId }).populate("publicSharing");
+    const shareLink = await linkModel.findOne({ userId })
+    .populate("publicSharing")
+    .populate("userId","fullname");
 
     res.json({
         shareLink
