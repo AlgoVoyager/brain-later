@@ -1,86 +1,102 @@
 import { RequestHandler } from "express";
 import z from "zod";
-import { contentModel } from "../utils/db.js";
+import { contentModel, tagModel } from "../utils/db.js";
 
 const contentZodSchema = z.object({
     title: z.string().min(3),
     link: z.string(),
     description: z.string(),
-    tags:z.array(z.string()),
-    type:z.string(),
+    tags: z.array(z.string()),
+    type: z.string(),
 })
 
-const createContent : RequestHandler = async (req, res)=> {
+const createContent: RequestHandler = async (req, res) => {
     const parsedData = contentZodSchema.safeParse(req.body);
-    if(!parsedData.success){
-        return res.status(406).json({message:"Insufficient Information!"})
+    if (!parsedData.success) {
+        return res.status(406).json({ message: "Insufficient Information!" })
     }
-    try{
-        const { title, description, tags, type, link } = req.body;
+    try {
+        const { title, description, tags, type, link } = parsedData.data;
+        let tagIds = [];
+        for (const tag of tags) {
+            let existingTag = await tagModel.findOne({ name: tag });
+            if (!existingTag) {
+                existingTag = await tagModel.create({ name: tag });
+            }
+            tagIds.push(existingTag._id);
+        }
         await contentModel.create({
             title,
             description,
             link,
-            tags,
+            tags: tagIds,
             type,
             //@ts-ignore
-            userId:req.userId
+            userId: req.userId
         })
+        console.log()
         res.json({
-            message:"Content Created Succesfully!"
+            message: "Content Created Succesfully!"
         })
-    }catch(error){
-        res.status(501).json({message:"Internal Server Error"})
+    } catch (error) {
+        console.log(error)
+        res.status(501).json({ message: "Internal Server Error" })
     }
 }
-const updateContent : RequestHandler = async (req, res)=> {
+const updateContent: RequestHandler = async (req, res) => {
     const parsedData = contentZodSchema.safeParse(req.body);
-    if(!parsedData.success){
-        return res.status(406).json({message:"Insufficient Information!"})
+    if (!parsedData.success) {
+        return res.status(406).json({ message: "Insufficient Information!" })
     }
-    try{
+    try {
         const { title, description, tags, type, link, contentId } = req.body;
         const content = await contentModel.findOne({
-            _id:contentId
+            _id: contentId
         })
-        if(!content){
-            return res.status(404).json({message:"Content Doesn't Exist!"})
+        if (!content) {
+            return res.status(404).json({ message: "Content Doesn't Exist!" })
         }
 
 
         res.json({
-            message:"Content Updated Succesfully!"
+            message: "Content Updated Succesfully!"
         })
-    }catch(error){
+    } catch (error) {
         console.log(error)
-        res.status(501).json({message:"Internal Server Error"})
+        res.status(501).json({ message: "Internal Server Error" })
     }
 }
-const getContent : RequestHandler = async (req, res) => {
+const getContent: RequestHandler = async (req, res) => {
     //@ts-ignore
     const userId = req.userId;
     const contents = await contentModel.find({
         userId
-    }).populate("userId","firstname")
-    
+    }).populate("userId", "firstname").populate('tags')
+
     res.json({
         contents
     });
 }
-const deleteContent : RequestHandler = async (req, res) => {
-    //@ts-ignore
-    const userId = req.userId;
-    const {contentId} = req.body;
-    if(!contentId) res.status(406).json({message:"Content doesn't exist!"})
-    await contentModel.deleteOne({_id:contentId});
-    res.json({
-        message:"Content Deleted succesfully!"
-    });
+const deleteContent: RequestHandler = async (req, res) => {
+    try {
+        //@ts-ignore
+        const userId = req.userId;
+        const { contentId } = req.params;
+        if (!contentId) res.status(406).json({ message: "Content doesn't exist!" })
+        await contentModel.deleteOne({ _id: contentId });
+        res.json({
+            message: "Content Deleted succesfully!"
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({message:"invalid request"})
+        
+    }
 }
-const testContent : RequestHandler = async (req, res) => {
+const testContent: RequestHandler = async (req, res) => {
     //@ts-ignore
     const token = req.userId;
-    res.json({token})
+    res.json({ token })
 }
 
 

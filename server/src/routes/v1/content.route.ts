@@ -6,7 +6,7 @@ import { authenticateUser, authoriseUser } from "../../middlewares/user.middlewa
 contentRouter.post('/', authenticateUser, createContent)
 contentRouter.get('/', authenticateUser, getContent)
 contentRouter.put('/', authenticateUser, updateContent)
-contentRouter.delete('/', authenticateUser, deleteContent)
+contentRouter.delete('/:contentId', authenticateUser, deleteContent)
 
 contentRouter.post('/test', authoriseUser, testContent)
 
