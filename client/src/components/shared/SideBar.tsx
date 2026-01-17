@@ -1,6 +1,7 @@
-import { Brain, Building, Contact, Home, Settings, User2 } from 'lucide-react'
+import { Brain, Building, Contact, Home, Settings, User2, User } from 'lucide-react'
 // import React, { type ReactElement } from 'react'
 import { Outlet, NavLink } from "react-router-dom"
+
 const SideBar = () => {
     const navlinks = [
         {
@@ -23,11 +24,23 @@ const SideBar = () => {
             href: "/settings",
             icon: <Settings />
         },
-        // {
-        //     text: "Profile",
-        //     href: "/profile",
-        //     icon: <User2 />
-        // },
+    ]
+    const authRoutes = [
+        {
+            text: "Profile",
+            href: "/profile",
+            icon: <User2 />
+        },
+        {
+            text: "Login",
+            href: "/login",
+            icon: <User />
+        },
+        {
+            text: "Register",
+            href: "/register",
+            icon: <User />
+        },
     ]
     const token = localStorage.getItem('token');
 
@@ -44,6 +57,17 @@ const SideBar = () => {
                             {link?.icon} {link.text}
                         </NavLink>
                     ))}
+                    <NavLink to={authRoutes[0].href} className={({ isActive }) => `hover:text-blue-600 text-xl flex gap-3 items-center nlink ${isActive ? 'text-primary activeNavlink' : 'text-black inActiveNavlink'}`} >
+                        {authRoutes[0]?.icon} {authRoutes[0].text}
+                    </NavLink>
+                    {/* {
+                    token?<NavLink key={navlinks.length+1} to={authRoutes[0].href} className={({ isActive }) => `hover:text-blue-600 text-xl flex gap-3 items-center nlink ${isActive ? 'text-primary activeNavlink' : 'text-black inActiveNavlink'}`} >
+                        {authRoutes[0]?.icon} {authRoutes[0].text}
+                    </NavLink>
+                    :<NavLink key={navlinks.length+1} to={authRoutes[1].href} className={({ isActive }) => `hover:text-blue-600 text-xl flex gap-3 items-center nlink ${isActive ? 'text-primary activeNavlink' : 'text-black inActiveNavlink'}`} >
+                        {authRoutes[1]?.icon} {authRoutes[1].text}
+                    </NavLink>
+                    } */}
                 </nav>
             </div>
             <div className="main w-4/5 flex items-center justify-center bg-slate-100">

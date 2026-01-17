@@ -26,8 +26,8 @@ const Card = (props:CardProps) => {
         </div>
         <div className="w-full flex flex-col gap-2 ">
             <div className="tags flex flex-wrap  gap-2">
-                {(props?.tags).map((tag)=>( 
-                    <div className="bg-secondary/50 text-primary text-sm border rounded-full px-2 py-1">#{tag.substring(0,6)}</div>
+                {(props?.tags).map((tag,key)=>( 
+                    <div key={key} className="bg-secondary/50 text-primary text-sm border rounded-full px-2 py-1">#{tag.substring(0,6)}</div>
                 ))} 
             </div>
          </div>

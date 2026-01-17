@@ -94,8 +94,8 @@ const HomePage = () => {
             </div>
         </header>
         <div className="flex flex-wrap gap-5 justify-start p-5">
-            {contents.map(content => (
-                <Card key={content._id} {...content} />
+            {contents.map((content,key) => (
+                <Card key={key} {...content} />
             ))}
         </div> 
     </main>
