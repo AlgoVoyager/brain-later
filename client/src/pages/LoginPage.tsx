@@ -12,7 +12,7 @@ const LoginPage = () => {
         password:''
     }
     const [form, setform] = useState(defaultForm);
-    const [responseMessage, setResponseMessage,MsgBlock] = useResponseMessage()
+    const [responseMessage, setResponseMessage, MsgBlock, responseLoading, setResponseLoading, Loader] = useResponseMessage()
     const handleSubmit = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
         try {
@@ -35,25 +35,25 @@ const LoginPage = () => {
     <form onSubmit={handleSubmit}
         className='w-1/2 border-4 rounded-xl p-10 flex bg-white flex-col items-center gap-10'>
         <h1 className='text-4xl font-semibold'>Login | Brain Later</h1>
-        <MsgBlock {...responseMessage} />
+        <MsgBlock />
         <InputText name='email' placeholder='Enter Email' label='Email' value={form.email} setter={setform} />
         <InputText name='password' placeholder='Enter Password' label='Password' value={form.password} setter={setform} />
         <Button
-            // customStyles='mx-auto'
             text="Login"
             size="xl"
             variant="primary"
-            // pIcon={<CirclePlus />}
+            sIcon={<Loader />}
+            disabled={responseLoading}
             onClick={()=>{}}
         />
         <div className='flex items-center gap-1'>
             Don't have an Account? 
             <Button
-                // customStyles='mx-auto'
                 text="Register"
                 size="sm"
                 variant="secondary"
-                // pIcon={<CirclePlus />}
+                sIcon={<Loader />}
+                disabled={responseLoading}
                 onClick={()=>navigate('/register')}
             />
             here

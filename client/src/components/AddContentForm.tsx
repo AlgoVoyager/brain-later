@@ -62,7 +62,7 @@ const AddContentForm = ({ closeContentWindow }: AddContentFormProps) => {
   return (
     <div className="addContentForm bg-white border-4 p-5 rounded-2xl w-1/2 translate-y-1/4 translate-x-1/2 relative flex flex-col items-center justify-center gap-1">
       <h1 className='font-bold text-3xl'>Enter Details of new Content</h1>
-      <MsgBlock {...responseMessage} />
+      <MsgBlock />
       <InputText name='title' label='Title' placeholder='Enter Content Title'
         value={form.title} setter={setform} />
       <InputText name='description' label='Description' placeholder='Enter Content description'
@@ -107,8 +107,8 @@ const AddContentForm = ({ closeContentWindow }: AddContentFormProps) => {
         variant="primary"
         pIcon={<CircleFadingPlus />}
         sIcon={<Loader />}
-        onClick={handleSubmit}
         disabled={responseLoading}
+        onClick={handleSubmit}
       />
     </div>
   )
