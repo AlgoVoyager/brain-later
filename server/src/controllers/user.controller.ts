@@ -15,7 +15,7 @@ const signInUser: RequestHandler = async (req, res) => {
     const parsedBody = signinSchema.safeParse(req.body);
     if (!parsedBody.success) {
         const errorCause = JSON.parse(parsedBody.error.message)[0]
-        return res.status(400).json({
+        return res.status(401).json({
             message: `${errorCause.path[0]} - ${errorCause.message}`
         })
     }
@@ -53,7 +53,7 @@ const signUpUser: RequestHandler = async (req, res) => {
     const parsedBody = signupSchema.safeParse(req.body);
     if (!parsedBody.success) {
         const errorCause = JSON.parse(parsedBody.error.message)[0]
-        return res.status(400).json({
+        return res.status(401).json({
             message: `${errorCause.path[0]} - ${errorCause.message}`
         })
     }

@@ -29,6 +29,9 @@ const Content = new mongoose.Schema({
         required: true
     }
 });
+const Tag = new mongoose.Schema({
+    name:{ type: String, unique: true }
+})
 
 const Link = new mongoose.Schema({
     hash: { type: String, required: true, unique: true },
@@ -48,11 +51,13 @@ const Link = new mongoose.Schema({
 
 const userModel = mongoose.model('User', User);
 const contentModel = mongoose.model('Content', Content);
+const tagModel = mongoose.model('Tag', Tag);
 const linkModel = mongoose.model('Link', Link);
 
 export {
     userModel,
     contentModel,
+    tagModel,
     linkModel,
     connectDB
 }
