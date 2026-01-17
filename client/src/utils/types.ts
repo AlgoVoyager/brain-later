@@ -8,6 +8,7 @@ interface ButtonProps {
     sIcon?: ReactElement;
     onClick: () => void;
     customStyles?:string;
+    disabled?:boolean
 }
 interface CardProps  {
     _id: string;

@@ -1,6 +1,5 @@
 
 import { useNavigate } from 'react-router-dom'
-import useYoutubeEmbed from '../utils/useYoutubeEmbed'
 import { useEffect } from 'react'
 
 const Profile = () => {

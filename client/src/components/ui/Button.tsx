@@ -14,7 +14,9 @@ const Button = (props: ButtonProps) => {
     }
 
     return (
-        <button className={ `${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]}  border rounded-xl flex items-center gap-2 hover:opacity-80 duration-150 hover:shadow `} onClick={props.onClick}>
+        <button className={ `${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${props.disabled&&"opacity-15"}  border rounded-xl flex items-center gap-2 hover:opacity-80 duration-150 hover:shadow `} 
+            onClick={props.onClick}
+            disabled={props.disabled}>
             {props?.pIcon}
             {props.text} 
             {props?.sIcon}
