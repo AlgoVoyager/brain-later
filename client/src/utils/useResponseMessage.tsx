@@ -28,7 +28,7 @@ const useResponseMessage = () => {
         )
     }
     const MsgBlock = ()=>{
-        return (<div className={`message py-1 px-2 rounded-lg ${responseMessage.statusCode>=400?"bg-red-100 text-red-600":"bg-green-100 text-green-600"}`}>
+        return (<div className={`message w-fit mx-auto py-1 px-2 rounded-lg ${responseMessage.statusCode>=400?"bg-red-100 text-red-600":"bg-green-100 text-green-600"}`}>
             {responseMessage.message}
         </div>)
     }

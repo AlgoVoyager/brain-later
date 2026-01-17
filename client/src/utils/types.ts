@@ -7,10 +7,10 @@ interface ButtonProps {
     pIcon?: ReactElement;
     sIcon?: ReactElement;
     onClick: () => void;
-    customStyles?:string;
-    disabled?:boolean
+    customStyles?: string;
+    disabled?: boolean
 }
-interface CardProps  {
+interface CardProps {
     _id: string;
     title: string;
     description: string;
@@ -19,6 +19,7 @@ interface CardProps  {
     tags: string[];
     userId: string;
     __v: number;
+    deleteContent?: (id: string) => void;
 }
 
 type ContentType = 'Post' | 'Link' | 'Idea' | 'Video' | 'Document' | 'Todo' | 'Other' | 'Important';

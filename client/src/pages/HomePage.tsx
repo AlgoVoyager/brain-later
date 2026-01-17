@@ -1,74 +1,29 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import Button from '../components/ui/Button'
 import { CirclePlus, Cross, Share2, X, XCircle } from 'lucide-react'
 import AddContentForm from '../components/addContentForm'
+import useContents from '../utils/useContents'
+import LoadingSkeleton from '../components/LoadingSkeleton'
 
 const HomePage = () => {
   const [addContentWindow, setaddContentWindow] = useState(false);
   const closeContentWindow = () => setaddContentWindow(p => !p)
-  const contents = [
-    {
-      "_id": "69677bb0a68e2c9b2c55731c",
-      "title": "first one",
-      "description": "desc",
-      "link": "href",
-      "type": "idea",
-      "tags": [
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419"
-      ],
-      "userId": "696771b9141abae27d19e419",
-      "__v": 0
-    },
-    {
-      "_id": "69677bb0a68e2c9b2c55731c",
-      "title": "first one",
-      "description": "desc",
-      "link": "href",
-      "type": "idea",
-      "tags": [
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419"
-      ],
-      "userId": "696771b9141abae27d19e419",
-      "__v": 0
-    },
-    {
-      "_id": "69677bb0a68e2c9b2c55731c",
-      "title": "first one",
-      "description": "desc",
-      "link": "href",
-      "type": "idea",
-      "tags": [
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419",
-      ],
-      "userId": "696771b9141abae27d19e419",
-      "__v": 0
-    },
-    {
-      "_id": "69677bb0a68e2c9b2c55731c",
-      "title": "first one",
-      "description": "desc",
-      "link": "href",
-      "type": "idea",
-      "tags": [
-        "696771b9141abae27d19e419",
-        "696771b9141abae27d19e419"
-      ],
-      "userId": "696771b9141abae27d19e419",
-      "__v": 0
-    },
-  ]
+  const [contents, setcontents, fetchContents, deleteContent, loadingContents, MsgBlock, responseMessage] = useContents(addContentWindow)
+  useEffect(()=>{
+        console.log(contents,'- home rerender -',responseMessage)
+      },[])
+      useEffect(()=>{
+        console.log(contents,'- contents rerender -',responseMessage)
+      },[contents])
+      useEffect(()=>{
+    console.log(contents,'- responsemsg rerender -',responseMessage)
+  },[responseMessage])
+
   return (<>
-    <main>
+    <main className='w-full h-full'>
       <header className='flex justify-between items-center p-10'>
-        <div className='text-3xl font-bold'>All Ideas</div>
+        <h1 className='text-3xl font-bold'>All Ideas</h1>
         <div className="options flex gap-3 relative">
           <Button
             // customStyles='mx-auto'
@@ -89,15 +44,22 @@ const HomePage = () => {
           {addContentWindow && (
             <div className={'addContentWindow ' + addContentWindow && ' expandAnimation'}>
               <XCircle onClick={closeContentWindow} className='bg-white rounded-bl-full flex items-center justify-center rounded-full absolute right-12 top-10' size={50} />
-              <AddContentForm closeContentWindow={setaddContentWindow} />
+              <AddContentForm closeContentWindow={setaddContentWindow} fetchContents={fetchContents} />
             </div>
           )}
         </div>
       </header>
-      <div className="flex flex-wrap gap-5 justify-start p-5">
-        {contents.map((content, key) => (
-          <Card key={key} {...content} />
-        ))}
+      <div className="homeOptions">
+        <MsgBlock/>
+      </div>
+      <div className="max-h-[80vh] overflow-y-auto flex flex-wrap gap-5 justify-start p-5">
+        {loadingContents ? <LoadingSkeleton />
+          : (contents.length
+            ? contents.map((content, key) => (
+              <Card key={key} {...content} deleteContent={deleteContent} />
+            ))
+            : "No Content Added..")
+        }
       </div>
     </main>
   </>)

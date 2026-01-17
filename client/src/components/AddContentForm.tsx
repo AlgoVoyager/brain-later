@@ -13,8 +13,9 @@ interface formInterface {
 }
 interface AddContentFormProps {
   closeContentWindow: Dispatch<SetStateAction<boolean>>;
+  fetchContents:(resData: { message: any; statusCode: number })=>void
 }
-const AddContentForm = ({ closeContentWindow }: AddContentFormProps) => {
+const AddContentForm = ({ closeContentWindow,fetchContents }: AddContentFormProps) => {
   const defualtForm: formInterface = {
     title: "",
     description: "",
@@ -47,6 +48,8 @@ const AddContentForm = ({ closeContentWindow }: AddContentFormProps) => {
       console.log(res)
       setResponseMessage(p => ({ ...p, message: res.data.message, statusCode: res.status }));
       resetForm()
+      const resData = { message: res.data.message, statusCode: res.status }
+      fetchContents(resData)
       setTimeout(() => {
         closeContentWindow(false)
       }, 300);
