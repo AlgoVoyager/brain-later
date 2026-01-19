@@ -1,9 +1,10 @@
 
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Button from '../components/ui/Button'
-import { Brain, Copy, CopyCheckIcon, CopyIcon } from 'lucide-react'
-
+import { Brain, Check, Copy, CopyCheckIcon, CopyIcon } from 'lucide-react'
+import './profile.css'
+import InputText from '../components/ui/InputText'
 const Profile = () => {
   const userdetails = {
     _id: "696b7fd3d756258f0696b175",
@@ -11,27 +12,27 @@ const Profile = () => {
     email: "nishantdewangan2002@gmail.com",
     hash:"5m0hcxkjsp2yjke58bsq"
   }
+  const contentDetails = {
+    totalPosts:10,
+    publicPosts:3,
+  }
   const hashlink = `${window.location.origin}/brain/${userdetails.hash}`;
   const navigate = useNavigate()
   const token = localStorage.getItem('token')
   useEffect(()=>{
     if(!token)navigate('/login')
   },[])
-  const handleLogout = ()=>{
-    localStorage.clear()
-    navigate('/login')
-  }
+
   const handleCopy = () => {
     window.navigator.clipboard.writeText(hashlink);
   };
   return (
     <div className='w-full h-full'>
-      {/* <div className="userDetails-container"> */}
-      <div className="userDetails flex gap-10  p-10 items-center">
-        <div className="profileBrainLogo bg-secondary p-8 rounded-full text-primary border-primary border-4">
-          <Brain size={120} />
+      <div className="userDetails flex gap-8  p-6 items-center">
+        <div className="profileBrainLogo bg-secondary p-6 rounded-full text-primary border-primary border-4">
+          <Brain size={100} />
         </div>
-        <div className='space-y-4 bg-slate-50'>
+        <div className='space-y-3'>
           <h2 className="fullname font-semibold text-3xl">{userdetails.fullname}</h2>
           <div className="email text-xl">{userdetails.email}</div>
           <div className="userHash flex items-center gap-1 rounded-full p-1 pl-2 border border-primary">
@@ -45,9 +46,25 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        {/* </div> */}
+        <div className="contentDetails flex flex-col items-center gap-2">
+          
+          <div className="cDetail bg-secondary w-72 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
+            <span className='text-3xl font-bold text-primary'>{contentDetails.totalPosts}</span>
+            <span className='text-primary'>Total Posts</span>
+          </div>
+          <div className='flex gap-2'>
+            <div className="cDetail bg-secondary w-36 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
+              <span className='text-3xl font-bold text-primary'>{contentDetails.totalPosts -contentDetails.publicPosts}</span>
+              <span className='text-primary'>Private Posts</span>
+            </div>
+            <div className="cDetail bg-secondary w-36 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
+              <span className='text-3xl font-bold text-primary'>{contentDetails.publicPosts}</span>
+              <span className='text-primary'>Shared Posts</span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="Tabs flex gap-2 w-full bg-secondary px-5 py-3">
+      <div className="Tabs flex gap-2 w-full bg-ternary px-5 py-3">
         <Button variant={'primary'} size={'sm'} 
         text={'Account Settings'} 
         onClick={ ()=>{}} />
@@ -55,15 +72,62 @@ const Profile = () => {
         text={'Shared Ideas'} 
         onClick={ ()=>{}} />
       </div>
-
-      {/* <h1>Profile</h1>
-      <div>
-        <Button variant={'primary'} size={'xl'} text={'Logout'} 
-        onClick={handleLogout} />
-        
-      </div> */}
+      <AccountSettings />
     </div>
   )
 }
+const AccountSettings = () => {
+  const navigate = useNavigate()
+  const [toggleChange, settoggleChange] = useState<boolean>(false)
+  const inputRef = useRef<HTMLInputElement>()
+
+  const handleNameChange = () =>{
+    const changedName = inputRef.current.value;
+    if(changedName.length<3) console.log("small")
+  }
+  const handleLogout = ()=>{
+    localStorage.clear()
+    navigate('/login')
+  }
+  const handlePrivate = () =>{
+
+  }
+  return (
+    <div className='account-settings p-6 bg-slate-50 grid  items-center grid-cols-2 '>
+      {/* Change Name */}
+      <div className="option-info ">
+        <h2 className='text-2xl font-semibold'>Change Name</h2>
+        {/* <h2 className='text-lg'>All posts will be removed from shared posts</h2> */}
+        <h4 className='opacity-60'>Your name is displayed on your shared brain page</h4>
+      </div>
+      <div className="option-action flex flex-wrap items-center gap-2">
+        <Button variant={toggleChange?'secondary':'primary'} size={'lg'} text={toggleChange?'Cancel':'Change'} onClick={()=>settoggleChange(p=>!p)} />
+        {toggleChange&&<>
+          <input type="text" ref={inputRef} placeholder='Enter New Name' className='bg-secondary text-primary rounded-xl p-3' />
+          <Button variant={'secondary'} size={'lg'} text={'Comfirm'} sIcon={<Check />} onClick={ handleNameChange }/>
+        </>}
+      </div>
+
+      {/* disable shared */}
+      <div className="option-info ">
+        <h2 className='text-2xl font-semibold'>Disable Sharing?</h2>
+        <h2 className='text-lg'>All posts will be removed from shared posts</h2>
+        <h4 className='opacity-60'>Your all shared posts will be inaccessible to everyone</h4>
+      </div>
+      <div className="option-action">
+        <Button variant={'primary'} size={'lg'} text={'Remove All'} onClick={handlePrivate} />
+      </div>
+
+      {/* logput */}
+      <div className="option-info">
+        <h2 className='text-2xl font-semibold'>Log out from this device?</h2>
+      </div>
+      <div className="option-action">
+        <Button customStyles='bg-red-600 w-fit' variant={'primary'} size={'lg'} text={'Logout'} onClick={handleLogout} />
+      </div>
+    </div>
+  )
+}
+
 
 export default Profile

@@ -4,7 +4,8 @@ const Button = (props: ButtonProps) => {
 
     const variantClasses = {
         primary: "bg-primary text-white",
-        secondary: "bg-secondary text-primary"
+        secondary: "bg-secondary text-primary",
+        ternary: "bg-ternary text-primary",
     }
     const sizeClasses = {
         sm: "text-sm px-2 py-1",
@@ -14,7 +15,7 @@ const Button = (props: ButtonProps) => {
     }
 
     return (
-        <button className={ `${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${props.disabled&&"opacity-15"}  border rounded-xl flex items-center gap-2 hover:opacity-80 duration-150 hover:shadow `} 
+        <button className={ `${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${props.disabled&&"opacity-15"}  border rounded-xl flex items-center gap-2 hover:opacity-80 duration-150 hover:shadow active:opacity-40 `} 
             onClick={props.onClick}
             disabled={props.disabled}>
             {props?.pIcon}

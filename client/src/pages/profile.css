@@ -1,0 +1,8 @@
+.account-settings{
+    & div{
+        @apply p-10
+    }
+    /* & div:nth-child(odd){
+        @apply border-b p-10
+    } */
+}

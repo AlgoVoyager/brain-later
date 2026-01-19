@@ -9,6 +9,7 @@ export default {
       colors: {
         primary: '#595E9F',
         secondary: '#DCE4FF',
+        ternary:"#E6E9ED",
         gray: {
           100: "#eeeeef",
           200: "#e6e9ed",
