@@ -1,5 +1,17 @@
 import type { ReactElement } from "react";
 
+interface UserDetails{
+  _id:string;
+  fullname:string;
+  email:string;
+  hash:string;
+  contentDetails:{
+    totalPosts:number;
+    publicPosts:number;
+  }
+  token:string;
+}
+
 interface ButtonProps {
     variant: "primary" | "secondary";
     size: "sm" | "md" | "lg" | "xl";
@@ -25,6 +37,7 @@ interface CardProps {
 type ContentType = 'Post' | 'Link' | 'Idea' | 'Video' | 'Document' | 'Todo' | 'Other' | 'Important';
 
 export type {
+    UserDetails,
     ButtonProps,
     CardProps,
     ContentType
