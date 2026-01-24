@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import z from "zod";
 import bcryptjs from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { linkModel, userModel } from "../utils/db.js"
+import { contentModel, linkModel, userModel } from "../utils/db.js"
 import { JWT_USER_SECRET } from "../utils/config.js";
 import { generateHash } from "../utils/hashGenerator.js";
 const signInUser: RequestHandler = async (req, res) => {
@@ -84,8 +84,57 @@ const deleteUser: RequestHandler = async (req, res) => {
     await linkModel.deleteOne({userId});
     res.json({message:"User Deleted Succesfully"})
 }
+const changeUserFullName: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    const {fullname} = req.body;
+    if(!fullname) return res.status(400).json({message:"Fullname is required"})
+    try {
+        await userModel.updateOne({_id:userId},{fullname});
+        res.json({message:"User Name Changed Succesfully"})
+    } catch (error) {
+        res.status(501).json("Internal server error")        
+    }
+}
+const changeUserPassword: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    const {oldPassword,newPassword} = req.body;
+    console.log(oldPassword, newPassword)
+
+    if(!oldPassword) return res.status(400).json({message:"Password is required"})
+    if(!newPassword) return res.status(400).json({message:"New Password is required"})
+
+    const user = await userModel.findOne({_id:userId});
+    if(!user) return res.status(404).json({message:"User Not Found"})
+
+    const matchPassword = await bcryptjs.compare(oldPassword, user.password);
+    if(!matchPassword) return res.status(403).json({message:"Incorrect Password!"})
+
+    const hashedNewPassword = await bcryptjs.hash(newPassword, 10);
+    await userModel.updateOne({_id:userId},{password:hashedNewPassword});
+
+    res.json({message:"User Password Changed Succesfully"})
+}
+const getUser: RequestHandler = async (req, res) => {
+    const userId = (req as any).userId;
+    const user = await userModel.findOne({_id:userId}).select("-password");
+    if(!user) return res.status(404).json({message:"User Not Found"});
+    const link = await linkModel.findOne({userId});
+    if(!link) return res.status(404).json({message:"Link Not Found"});
+    const contentDetails = await contentModel.countDocuments({userId});
+    res.json({
+        ...user.toObject(),
+        hash:link?.hash,
+        contentDetails:{
+            totalPosts:contentDetails,
+            publicPosts:link?.publicSharing.length
+        }
+    })
+}
 export {
     signInUser,
     signUpUser,
-    deleteUser
+    deleteUser,
+    changeUserFullName,
+    changeUserPassword,
+    getUser
 }
