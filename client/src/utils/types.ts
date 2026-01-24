@@ -8,8 +8,8 @@ interface UserDetails{
   contentDetails:{
     totalPosts:number;
     publicPosts:number;
-  }
-  token:string;
+  };
+  __v:number
 }
 
 interface ButtonProps {

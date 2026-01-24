@@ -5,10 +5,11 @@ import Button from '../components/ui/Button'
 import { Brain, Check, CopyCheckIcon, CopyIcon } from 'lucide-react'
 import './profile.css'
 import { useAppDispatch, useAppSelector } from '../utils/hooks'
+import { getUserDetails } from '../utils/useUser'
 
 
-
-const Profile = () => {
+const Profile =  () => {
+  
   const user = useAppSelector(state => state.user)
 
   const hashlink = `${window.location.origin}/brain/${user.hash}`;
