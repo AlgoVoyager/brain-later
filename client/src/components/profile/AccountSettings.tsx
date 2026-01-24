@@ -3,12 +3,17 @@ import { useNavigate } from "react-router-dom"
 import Button from "../ui/Button"
 import ChangeName from "./ChangeName"
 import ChangePassword from "./ChangePassword"
-
+import { useDispatch } from "react-redux"
+import { setLogout } from "../../redux/features/userSlice"
 const AccountSettings = () => {
   const navigate = useNavigate()
 
+  const dispatch = useDispatch()
+
   const handleLogout = () => {
+
     localStorage.clear()
+    dispatch(setLogout())
     navigate('/login')
   }
   const handlePrivate = () => {
@@ -29,17 +34,7 @@ const AccountSettings = () => {
       </div>
 
       <ChangeName />
-
-      {/* Change Password */}
       <ChangePassword />
-      {/* <div className="option-info ">
-        <h2 className='text-2xl font-semibold'>Change Password</h2>
-        <h2 className='text-lg'>Change your password</h2>
-        <h4 className='opacity-60'>Your all shared posts will be inaccessible to everyone</h4>
-      </div>
-      <div className="option-action">
-        <Button variant={'primary'} size={'lg'} text={'Change'} onClick={handlePrivate} />
-      </div> */}
 
       {/* logput */}
       <div className="option-info">
