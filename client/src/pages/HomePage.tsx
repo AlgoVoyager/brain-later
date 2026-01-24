@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Card from '../components/Card'
 import Button from '../components/ui/Button'
-import { CirclePlus, Cross, Share2, X, XCircle } from 'lucide-react'
-import AddContentForm from '../components/addContentForm'
+import { CirclePlus, Share2, XCircle } from 'lucide-react'
+import AddContentForm from '../components/AddContentForm'
 import useContents from '../utils/useContents'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 
@@ -10,15 +10,6 @@ const HomePage = () => {
   const [addContentWindow, setaddContentWindow] = useState(false);
   const closeContentWindow = () => setaddContentWindow(p => !p)
   const [contents, setcontents, fetchContents, deleteContent, loadingContents, MsgBlock, responseMessage] = useContents(addContentWindow)
-  useEffect(()=>{
-        console.log(contents,'- home rerender -',responseMessage)
-      },[])
-      useEffect(()=>{
-        console.log(contents,'- contents rerender -',responseMessage)
-      },[contents])
-      useEffect(()=>{
-    console.log(contents,'- responsemsg rerender -',responseMessage)
-  },[responseMessage])
 
   return (<>
     <main className='w-full h-full'>
@@ -56,6 +47,7 @@ const HomePage = () => {
         {loadingContents ? <LoadingSkeleton />
           : (contents.length
             ? contents.map((content, key) => (
+              // @ts-ignore
               <Card key={key} {...content} deleteContent={deleteContent} />
             ))
             : "No Content Added..")

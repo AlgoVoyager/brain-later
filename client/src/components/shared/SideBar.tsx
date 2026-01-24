@@ -70,7 +70,7 @@ const SideBar = () => {
                     } */}
                 </nav>
             </div>
-            <div className="main w-4/5 flex items-center justify-center bg-slate-100">
+            <div className="main w-4/5 h-screen flex items-center justify-center bg-slate-100">
                 <Outlet />
             </div>
         </div>

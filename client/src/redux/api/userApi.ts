@@ -22,7 +22,21 @@ export const userApi = createApi({
         getUser: builder.query<UserDetails, void>({
             query: () => '/user/getUser',
         }),
+        changeUserName: builder.mutation<{message: string} , {fullname: string}>({
+            query: ({fullname}) => ({
+                url: '/user/changeName',
+                method: 'PATCH',
+                body: { fullname }
+            }),
+        }),
+        changePassword: builder.mutation<{message: string} , {newPassword: string, oldPassword: string}>({
+            query: ({newPassword, oldPassword}) => ({
+                url: '/user/changePassword',
+                method: 'PATCH',
+                body: { newPassword, oldPassword }
+            }),
+        }),
     }),
 });
 
-export const { useGetUserQuery } = userApi;
+export const { useGetUserQuery, useChangeUserNameMutation, useChangePasswordMutation } = userApi;
