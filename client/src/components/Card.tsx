@@ -1,5 +1,5 @@
 
-import { Share2, Trash2 } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import type { CardProps } from '../utils/types'
 import useYoutubeEmbed from '../utils/useYoutubeEmbed'
@@ -47,7 +47,7 @@ const Card = (props: CardProps) => {
         <div className="upperSec flex items-center justify-between w-full">
           <div className="bg-secondary/50 text-primary border rounded-full px-2 py-1">{props.type}</div>
           <div className="contentOptions flex gap-2 items-center">
-            <ShareWindow />
+            <ShareWindow contentId={props._id} />
             <div className='group relative hover:bg-red-300 hover:translate-y-1 hover:rotate-6 duration-200 rounded-full cursor-pointer p-2'
               onClick={() => setConfirmOpen(!confirmOpen)}>
               <Trash2 />
