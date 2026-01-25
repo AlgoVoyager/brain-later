@@ -4,9 +4,7 @@ import Button from '../components/ui/Button'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 import useResponseMessage from '../utils/useResponseMessage'
-import { useDispatch } from 'react-redux'
 import { useGetUserQuery } from '../redux/api/userApi'
-import { setUserDetails } from '../redux/features/userSlice'
 
 const LoginPage = () => {
     const navigate = useNavigate();

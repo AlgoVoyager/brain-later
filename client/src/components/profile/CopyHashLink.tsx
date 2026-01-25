@@ -9,7 +9,7 @@ const CopyHashLink = () => {
         window.navigator.clipboard.writeText(hashlink);
     };
     return (
-        <div className="userHash flex items-center gap-1 rounded-full p-1 pl-2 border border-primary">
+        <div className="userHash flex w-fit items-center gap-1 rounded-full p-1 pl-2 border border-primary">
             <span>Shared Brain Link </span>
             <div className="hash px-3 bg-secondary w-fit rounded-full text-primary">
                 {hashlink.substring(7)}

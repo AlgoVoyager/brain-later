@@ -5,9 +5,11 @@ import { CirclePlus, Share2, XCircle } from 'lucide-react'
 import AddContentForm from '../components/AddContentForm'
 import useContents from '../utils/useContents'
 import LoadingSkeleton from '../components/LoadingSkeleton'
+import CopyHashLink from '../components/profile/CopyHashLink'
 
 const HomePage = () => {
   const [addContentWindow, setaddContentWindow] = useState(false);
+  const [shareWindow, setshareWindow] = useState(true);
   const closeContentWindow = () => setaddContentWindow(p => !p)
   const [contents, setcontents, fetchContents, deleteContent, loadingContents, MsgBlock, responseMessage] = useContents(addContentWindow)
 
@@ -22,8 +24,17 @@ const HomePage = () => {
             size="lg"
             variant="secondary"
             pIcon={<Share2 />}
-            onClick={() => { console.log(1) }}
+            onClick={() => { setshareWindow(p => !p) }}
           />
+          {shareWindow && (
+            <div className={`confirm-share-window space-y-2 px-4 flex flex-col justify-center ${shareWindow && 'expandShareAnimation'}`}>
+              <XCircle onClick={() => { setshareWindow(p => !p) }} 
+                className='bg-white rounded-bl-full flex items-center justify-center rounded-full absolute right-8 top-4 cursor-pointer' size={50} />
+              <h1 className='text-2xl font-bold'>Share Brain</h1>
+              <p>Anyone with this link can view your Contents</p>
+              <CopyHashLink />
+            </div>
+          )}
           <Button
             // customStyles='mx-auto'
             text="Add Content"

@@ -44,12 +44,44 @@
     /* transition: all 0.1s ease-in; */
 }
 .addContentWindow{
-    @apply relative flex flex-col items-center justify-center
+    @apply relative flex flex-col items-center justify-center z-50;
 }
 .expandAnimation{
     animation: expandAddWindow 0.2s ease-in-out forwards;
+    z-index: 1000;
 }
 
+.confirm-share-window{
+    z-index: 1000;
+    /* animation: expandShareWindow 0.2s ease-in-out forwards; */
+    /* visibility: hidden; */
+    /* animation: visibleAnimation  0.5s ease-in 0.2s forwards; */
+}
+.expandShareAnimation{
+    animation: expandShareWindow 0.2s ease-in-out forwards;
+}
+@keyframes expandShareWindow {
+    from {
+        width: 10rem;
+        height: 2.5rem;
+        position: fixed;
+        right: -41px;
+        top: -71px;
+        border-radius: 70% 0px 100% 250%;
+        /* border: 2px solid #f2f2f2; */
+    }
+    to{
+       width: 40%;
+       height: 20vh;
+       backdrop-filter: blur(3px);
+       position: fixed;
+       background-color: #91959b6f ;
+       top: 30px;
+       right: 220px;
+       border-radius: 30px;
+        border: none;
+    }
+}
 @keyframes expandAddWindow {
     from {
         width: 10rem;
