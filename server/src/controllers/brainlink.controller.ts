@@ -23,20 +23,25 @@ const getShare: RequestHandler = async (req, res) => {
     });
 }
 const updateShare: RequestHandler = async (req, res) => {
-    const { updatedContents } = req.body;
-    if (!updatedContents) return res.status(406).json({ message: "Invalid Request" });
-    await linkModel.updateOne({
-        //@ts-ignore
-        userId: req.userId
-    }, {
-        publicSharing: updatedContents
-    })
-    const userId = (req as any).userId;
-    const shareLink = await linkModel.findOne({ userId });
-
-    res.json({
-        shareLink
-    });
+    const { contentId } = req.body;
+    if (!contentId) return res.status(406).json({ message: "Missing Content" });
+    try {
+        await linkModel.updateOne({
+            //@ts-ignore
+            userId: req.userId
+        }, {
+            $addToSet: {
+                publicSharing: contentId
+            }
+        })
+        res.json({
+            message:"Content Shared Succesfully"
+        });
+    } catch (error) {
+        res.status(501).json({
+            message:"Content Shared Failed"
+        });
+    }
 }
 
 export {

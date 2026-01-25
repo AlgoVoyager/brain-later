@@ -4,7 +4,7 @@ import { getShare, updateShare, shareContents } from "../../controllers/brainlin
 const brainRouter = express.Router();
 
 brainRouter.get('/share', authenticateUser, getShare);
-brainRouter.post('/share', authenticateUser, updateShare);
+brainRouter.patch('/share', authenticateUser, updateShare);
 
 brainRouter.get('/:hash', authoriseUser, shareContents);
 
