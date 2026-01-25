@@ -9,6 +9,7 @@ import { useGetUserQuery } from "./redux/api/userApi"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setUserDetails } from "./redux/features/userSlice"
+import SharedBrainPage from "./pages/SharedBrainPage"
 
 const App = () => {
   const { data: user, isLoading, error } = useGetUserQuery();
@@ -20,14 +21,6 @@ const App = () => {
       dispatch(setUserDetails(user));
     }
   }, [user, dispatch]);
-
-  // if (isLoading) {
-  //   return (
-  //     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-  //       Loading user data...
-  //     </div>
-  //   );
-  // }
 
   if (error) {
     console.log(error)
@@ -43,6 +36,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/brain/:hash" element={<SharedBrainPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
