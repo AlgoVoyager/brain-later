@@ -16,6 +16,9 @@ export const contentsSlice = createSlice({
         updateShareContent: (state, action: PayloadAction<string>) => {
             return state.map((item) => item._id === action.payload ? { ...item, shared: !item.shared } : item)
         },
+        unShareAllContents: (state) => {
+            return state.map((item) => ({ ...item, shared: false }))
+        },
         deleteContent: (state, action: PayloadAction<string>) => {
             return state.filter((item) => item._id !== action.payload)
         },
@@ -23,5 +26,11 @@ export const contentsSlice = createSlice({
     }
 })
 
-export const { setContents, addContent, deleteContent, updateShareContent } = contentsSlice.actions;
+export const { 
+    setContents,
+    addContent,
+    deleteContent,
+    updateShareContent,
+    unShareAllContents 
+} = contentsSlice.actions;
 export default contentsSlice.reducer;

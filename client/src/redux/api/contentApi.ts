@@ -44,7 +44,19 @@ export const contentApi = createApi({
                 body: { contentId }
             }),
         }),
+        removeAllShared: builder.mutation<{message:string}, void>({
+            query: () => ({
+                url: '/brain/share/remove-all',
+                method: 'PATCH',
+            }),
+        }),
     }),
 });
 
-export const { useToggleShareContentMutation, useAddContentRequestMutation, useDeleteContentRequestMutation, useFetchContentsQuery } = contentApi;
+export const { 
+    useToggleShareContentMutation, 
+    useAddContentRequestMutation, 
+    useDeleteContentRequestMutation, 
+    useFetchContentsQuery, 
+    useRemoveAllSharedMutation 
+} = contentApi;

@@ -4,10 +4,13 @@ import Button from "../ui/Button"
 import ChangeName from "./ChangeName"
 import ChangePassword from "./ChangePassword"
 import { useDispatch } from "react-redux"
-import { setLogout } from "../../redux/features/userSlice"
+import { setLogout, resetPublicPosts } from "../../redux/features/userSlice"
 import { useAppSelector } from "../../utils/hooks"
+import { useRemoveAllSharedMutation } from "../../redux/api/contentApi"
+import { unShareAllContents } from "../../redux/features/contentsSlice"
 const AccountSettings = () => {
   const user = useAppSelector(state => state.user)
+  const [removeAllShared] = useRemoveAllSharedMutation()
   
   const navigate = useNavigate()
 
@@ -19,7 +22,13 @@ const AccountSettings = () => {
     dispatch(setLogout())
     navigate('/login')
   }
-  const handlePrivate = () => {
+  const handleMakeAllPrivate = () => {
+    removeAllShared().then((res)=>{
+      if(res.data){
+        dispatch(resetPublicPosts())
+        dispatch(unShareAllContents())
+      }
+    })
 
   }
   return (
@@ -36,7 +45,7 @@ const AccountSettings = () => {
         </>)}
       </div>
       <div className="option-action">
-        <Button variant={'primary'} size={'lg'} text={'Remove All'} onClick={handlePrivate}
+        <Button variant={'primary'} size={'lg'} text={'Remove All'} onClick={handleMakeAllPrivate}
          disabled={user.contentDetails.publicPosts === 0} />
       </div>
 
