@@ -8,6 +8,7 @@ import { useGetUserQuery } from '../redux/api/userApi'
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    
     const { refetch } = useGetUserQuery(); // Call hook at component level
     const defaultForm = {
         email: '',

@@ -24,6 +24,7 @@ export const userSlice = createSlice({
             state.fullname = action.payload;
         },
         setLogout: () => {
+            localStorage.removeItem("token");
             return initialState
         },
         setPublicPosts: (state, action: PayloadAction<number>) => {

@@ -8,6 +8,7 @@ import { setLogout, resetPublicPosts } from "../../redux/features/userSlice"
 import { useAppSelector } from "../../utils/hooks"
 import { useRemoveAllSharedMutation } from "../../redux/api/contentApi"
 import { unShareAllContents } from "../../redux/features/contentsSlice"
+import DeleteUser from "./DeleteUser"
 const AccountSettings = () => {
   const user = useAppSelector(state => state.user)
   const [removeAllShared] = useRemoveAllSharedMutation()
@@ -59,6 +60,8 @@ const AccountSettings = () => {
       <div className="option-action">
         <Button customStyles='bg-red-600 w-fit' variant={'primary'} size={'lg'} text={'Logout'} onClick={handleLogout} />
       </div>
+
+      <DeleteUser/>
     </div>
   )
 }
