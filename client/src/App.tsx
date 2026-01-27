@@ -14,12 +14,11 @@ import { contentApi } from "./redux/api/contentApi"
 import { setContents } from "./redux/features/contentsSlice"
 
 const App = () => {
+  const { data: user, error } = useGetUserQuery();
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-  if(token){
-    
-    const { data:contents } = contentApi.useFetchContentsQuery()
-    const { data: user, error } = useGetUserQuery();
+  
+  const { data:contents } = contentApi.useFetchContentsQuery()
     
     useEffect(() => {
       contents&&dispatch(setContents(contents));
@@ -31,7 +30,6 @@ const App = () => {
     if (error) {
       console.log(error)
     }
-  }
 
   return (
     <>

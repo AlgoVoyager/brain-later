@@ -1,6 +1,7 @@
 import { Brain, Building, Contact, Home, Settings, User2, User } from 'lucide-react'
 // import React, { type ReactElement } from 'react'
 import { Outlet, NavLink } from "react-router-dom"
+import { useAppSelector } from '../../utils/hooks'
 
 const SideBar = () => {
     const navlinks = [
@@ -42,8 +43,8 @@ const SideBar = () => {
             icon: <User />
         },
     ]
-    const token = localStorage.getItem('token');
-
+    const theme = useAppSelector((state) => state.theme.mode);
+    console.log(theme)
     return (
         <div className='flex '>
             <div className="sidebar w-1/5 h-screen flex flex-col gap-3 py-10 pl-2 border-r-4">
@@ -70,7 +71,7 @@ const SideBar = () => {
                     } */}
                 </nav>
             </div>
-            <div className="main w-4/5 h-screen flex items-center justify-center bg-slate-100">
+            <div className={`main w-4/5 h-screen flex items-center justify-center ${theme === "dark" ? "bg-slate-900 text-secondary" : "bg-slate-100"}`}>
                 <Outlet />
             </div>
         </div>
