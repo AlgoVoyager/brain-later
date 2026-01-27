@@ -26,7 +26,8 @@ const Content = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    shared: { type: Boolean, default: false }
 });
 const Tag = new mongoose.Schema({
     name:{ type: String, unique: true }

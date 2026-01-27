@@ -25,7 +25,7 @@ const createContent: RequestHandler = async (req, res) => {
             }
             tagIds.push(existingTag._id);
         }
-        await contentModel.create({
+        const content = await contentModel.create({
             title,
             description,
             link,
@@ -34,8 +34,8 @@ const createContent: RequestHandler = async (req, res) => {
             //@ts-ignore
             userId: req.userId
         })
-        console.log()
         res.json({
+            content,
             message: "Content Created Succesfully!"
         })
     } catch (error) {
@@ -73,9 +73,7 @@ const getContent: RequestHandler = async (req, res) => {
         userId
     }).populate("userId", "firstname").populate('tags')
 
-    res.json({
-        contents
-    });
+    res.json(contents);
 }
 const deleteContent: RequestHandler = async (req, res) => {
     try {
@@ -89,7 +87,7 @@ const deleteContent: RequestHandler = async (req, res) => {
         });
     } catch (error) {
         console.log(error)
-        res.status(400).json({message:"invalid request"})
+        res.status(400).json({message:"Content Deletion Failed"})
         
     }
 }
