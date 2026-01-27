@@ -59,19 +59,14 @@ const SharedBrainPage = () => {
           </div>
       </div>
       <div className="Tabs flex gap-2 w-full bg-ternary px-5 py-3 flex-shrink-0">
-        {/* <Button variant={'primary'} size={'sm'}
-          text={'Account Settings'}
-          onClick={() => { }} />
-        <Button variant={'primary'} size={'sm'}
-          text={'Shared Ideas'}
-          onClick={() => { }} /> */}
       </div>
       <div className="shared-posts flex-1 overflow-hidden overflow-y-auto flex flex-wrap gap-5 justify-start p-5">
         {/* <AccountSettings /> */}
-        {loading?(<LoadingSkeleton/>):SharedData.publicSharing.map((item)=>{
+        {loading?(<LoadingSkeleton/>)
+        :SharedData.publicSharing.length === 0 ? "No Shared Posts" :SharedData.publicSharing.map((item)=>{
             return(
                 <div key={item._id}>
-                    <Card {...item} />
+                    <Card content={item} shared={true} />
                 </div>
             )
         })}

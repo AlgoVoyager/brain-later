@@ -60,7 +60,7 @@ const HomePage = () => {
           : (contents.length
             ? contents.map((content, key) => (
               
-              <Card  key={key} {...content}  />
+              <Card  key={key} content={content}  />
             ))
             : "No Content Added..")
         }

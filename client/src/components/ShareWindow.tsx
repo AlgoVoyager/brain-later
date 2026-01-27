@@ -13,13 +13,8 @@ const ShareWindow = ({ contentId, shared }: { contentId: string, shared: boolean
   const handleShare = async () => {
     try {
       await toggleShareContent({ contentId }).unwrap();
-      // Update the content's shared status in Redux
       dispatch(updateShareContent(contentId));
-      // Update public posts count based on current state
-      // If currently shared, we're unsharing (decrement by -1)
-      // If not shared, we're sharing (increment by +1)
       dispatch(setPublicPosts(shared ? -1 : 1));
-      // Close the confirmation window after successful update
       setTimeout(() => {
         setConfirmOpen(false);
       }, 1500);
@@ -34,7 +29,7 @@ const ShareWindow = ({ contentId, shared }: { contentId: string, shared: boolean
       {confirmOpen && (
         <div className="absolute confirm-share-window -top-7 -right-10  group-hover:rotate-6 bg-white border shadow-lg rounded-lg p-3  flex flex-col items-center gap-2"
           onClick={(e) => e.stopPropagation()} >
-          {data && data.message + " & Link copied!"}
+          {data && data.message + (!shared ? " & Link Revoked!" : " & Link Copied!" )}
           {/* @ts-ignore */}
           {error?.data?.message}
           <h3 className="whitespace-nowrap font-semibold">{shared ? "Unshare this from public?" : "Share this to public?"}</h3>

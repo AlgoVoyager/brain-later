@@ -9,8 +9,9 @@ import { useDispatch } from 'react-redux'
 import { deleteContent } from '../redux/features/contentsSlice'
 import LinkType from './LinkType'
 
-const Card = (props: CardProps) => {
-  const [confirmOpen, setConfirmOpen] = useState(false);
+const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
+  // console.log(content)
+  const [confirmOpen, setConfirmOpen]  = useState(false);
   const dispatch = useDispatch();
   const [ deleteContentRequest, {
       isLoading: deleteLoading, 
@@ -18,17 +19,17 @@ const Card = (props: CardProps) => {
     }] = useDeleteContentRequestMutation()
  
   const handleDelete = () => {
-    deleteContentRequest({ contentId:props._id })
-    dispatch(deleteContent(props._id))
+    deleteContentRequest({ contentId:content._id })
+    dispatch(deleteContent(content._id))
   }
 
   return (
     <div className='flex flex-col justify-between gap-2 items-start hover:shadow-lg shadow-none duration-200 bg-white p-4 min-h-72 max-w-1/3  min-w-1/4 border-4 rounded-xl'>
       <div className="w-full flex flex-col items-start gap-2">
         <div className="upperSec flex items-center justify-between w-full">
-          <div className="bg-secondary/50 text-primary border rounded-full px-2 py-1">{props.type}</div>
-          <div className="contentOptions flex gap-2 items-center">
-            <ShareWindow contentId={props._id} shared={props.shared}  />
+          <div className="bg-secondary/50 text-primary border rounded-full px-2 py-1">{content.type}</div>
+          {!shared && <div className="contentOptions flex gap-2 items-center">
+            <ShareWindow contentId={content._id} shared={content.shared}  />
             <div className='group relative hover:bg-red-300 hover:translate-y-1 hover:rotate-6 duration-200 rounded-full cursor-pointer p-2'
               onClick={() => setConfirmOpen(!confirmOpen)}>
               <Trash2 />
@@ -55,15 +56,15 @@ const Card = (props: CardProps) => {
                 </div>
               )}
             </div>
-          </div>
+          </div>}
         </div>
-        <h2 className='text-4xl font-semibold'>{props.title}</h2>
-        <p className="text-justify">{props.description}</p>
-        <LinkType link={props.link} type={props.type} />
+        <h2 className='text-4xl font-semibold'>{content.title}</h2>
+        <p className="text-justify">{content.description}</p>
+        <LinkType link={content.link} type={content.type} />
       </div>
       <div className="w-full flex flex-col gap-2 ">
         <div className="tags flex flex-wrap  gap-2">
-          {(props?.tags).map((tag, key) => (
+          {(content?.tags).map((tag, key) => (
             <div key={key} className="bg-secondary/50 text-primary text-sm border rounded-full px-2 py-1">
               #{
                 //@ts-ignore

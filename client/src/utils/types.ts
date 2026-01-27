@@ -34,6 +34,7 @@ interface SharedData {
     type: string;
     tags: string[];
     userId: string;
+    shared:boolean;
     __v: number;
   }[];
   __v: number;
