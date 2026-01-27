@@ -23,11 +23,11 @@ export const userSlice = createSlice({
         setUserName: (state, action: PayloadAction<string>) => {
             state.fullname = action.payload;
         },
-        setLogout: (state) => {
+        setLogout: () => {
             return initialState
         },
-        setPublicPosts: (state) => {
-            state.contentDetails.publicPosts += 1;
+        setPublicPosts: (state, action: PayloadAction<number>) => {
+            state.contentDetails.publicPosts += action.payload;
         }
     }
 })

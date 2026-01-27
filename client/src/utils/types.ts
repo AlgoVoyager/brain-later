@@ -11,6 +11,13 @@ interface UserDetails {
   };
   __v: number
 }
+interface formInterface {
+  title: string,
+  description: string,
+  type: string,
+  link: string,
+  tags: string[]
+}
 
 interface SharedData {
   _id:string;
@@ -49,8 +56,8 @@ interface CardProps {
   type: string;
   tags: string[];
   userId: string;
+  shared:boolean;
   __v: number;
-  deleteContent?: (id: string) => void;
 }
 
 type ContentType = 'Post' | 'Link' | 'Idea' | 'Video' | 'Document' | 'Todo' | 'Other' | 'Important';
@@ -60,5 +67,6 @@ export type {
   ButtonProps,
   CardProps,
   ContentType,
-  SharedData
+  SharedData,
+  formInterface
 }

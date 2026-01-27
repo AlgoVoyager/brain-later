@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from '../redux/features/userSlice'
+import contentsReducer from '../redux/features/contentsSlice'
 import { userApi } from './api/userApi'
 import { contentApi } from './api/contentApi'
-
 export const store = configureStore({
     reducer: {
         user: userReducer,
+        contents: contentsReducer,
         [userApi.reducerPath]: userApi.reducer,
         [contentApi.reducerPath]: contentApi.reducer,
 

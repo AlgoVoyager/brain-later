@@ -3,23 +3,25 @@ import Card from '../components/Card'
 import Button from '../components/ui/Button'
 import { CirclePlus, Share2, XCircle } from 'lucide-react'
 import AddContentForm from '../components/AddContentForm'
-import useContents from '../utils/useContents'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import CopyHashLink from '../components/profile/CopyHashLink'
+import { contentApi } from '../redux/api/contentApi'
+import { useAppSelector } from '../utils/hooks'
+import MsgBlock from '../components/shared/MsgBlock'
 
 const HomePage = () => {
+  const { isLoading:loadingContents } = contentApi.useFetchContentsQuery()
+  const contents = useAppSelector((state) => state.contents);
+  
   const [addContentWindow, setaddContentWindow] = useState(false);
-  const [shareWindow, setshareWindow] = useState(true);
-  const closeContentWindow = () => setaddContentWindow(p => !p)
-  const [contents, setcontents, fetchContents, deleteContent, loadingContents, MsgBlock, responseMessage] = useContents(addContentWindow)
 
+  const [shareWindow, setshareWindow] = useState(false);
   return (<>
     <main className='w-full h-full'>
       <header className='flex justify-between items-center p-10'>
         <h1 className='text-3xl font-bold'>All Ideas</h1>
         <div className="options flex gap-3 relative">
           <Button
-            // customStyles='mx-auto'
             text="Share Brain"
             size="lg"
             variant="secondary"
@@ -36,7 +38,6 @@ const HomePage = () => {
             </div>
           )}
           <Button
-            // customStyles='mx-auto'
             text="Add Content"
             size="lg"
             variant="primary"
@@ -45,21 +46,21 @@ const HomePage = () => {
           />
           {addContentWindow && (
             <div className={'addContentWindow ' + addContentWindow && ' expandAnimation'}>
-              <XCircle onClick={closeContentWindow} className='bg-white rounded-bl-full flex items-center justify-center rounded-full absolute right-12 top-10' size={50} />
-              <AddContentForm closeContentWindow={setaddContentWindow} fetchContents={fetchContents} />
+              <XCircle onClick={()=>setaddContentWindow(false)} className='bg-white rounded-bl-full flex items-center justify-center rounded-full absolute right-12 top-10' size={50} />
+              <AddContentForm setaddContentWindow={setaddContentWindow} />
             </div>
           )}
         </div>
       </header>
       <div className="homeOptions">
-        <MsgBlock/>
+        <MsgBlock error={undefined} data={undefined} />
       </div>
       <div className="max-h-[80vh] overflow-y-auto flex flex-wrap gap-5 justify-start p-5">
         {loadingContents ? <LoadingSkeleton />
           : (contents.length
             ? contents.map((content, key) => (
-              // @ts-ignore
-              <Card key={key} {...content} deleteContent={deleteContent} />
+              
+              <Card  key={key} {...content}  />
             ))
             : "No Content Added..")
         }

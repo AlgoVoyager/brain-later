@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { CardProps, formInterface } from '../../utils/types';
 export const contentApi = createApi({
     reducerPath: 'contentApi',
     baseQuery: fetchBaseQuery({
@@ -17,7 +18,26 @@ export const contentApi = createApi({
         },
     }),
     endpoints: (builder) => ({
-        shareContent: builder.mutation<{message:string}, {contentId: string}>({
+        fetchContents: builder.query<CardProps[], void>({
+            query: () => ({
+                url: '/content',
+                method: 'GET',
+            }),
+        }),
+        addContentRequest: builder.mutation<{message:string,content:CardProps}, formInterface>({
+            query: (form) => ({
+                url: '/content',
+                method: 'POST',
+                body: form
+            }),
+        }),
+        deleteContentRequest: builder.mutation<{message:string}, {contentId: string}>({
+            query: ({contentId}) => ({
+                url: '/content/' + contentId,
+                method: 'DELETE',
+            }),
+        }),
+        toggleShareContent: builder.mutation<{message:string}, {contentId: string}>({
             query: ({contentId}) => ({
                 url: '/brain/share',
                 method: 'PATCH',
@@ -27,4 +47,4 @@ export const contentApi = createApi({
     }),
 });
 
-export const { useShareContentMutation } = contentApi;
+export const { useToggleShareContentMutation, useAddContentRequestMutation, useDeleteContentRequestMutation, useFetchContentsQuery } = contentApi;

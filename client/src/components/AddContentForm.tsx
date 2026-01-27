@@ -1,21 +1,16 @@
 import { useState, type Dispatch, type SetStateAction } from 'react'
 import InputText from './ui/InputText';
-import { CircleFadingPlus, Plus } from 'lucide-react';
+import { CircleFadingPlus, Loader, Plus } from 'lucide-react';
 import Button from './ui/Button';
-import useResponseMessage from '../utils/useResponseMessage';
-import axios from 'axios';
-interface formInterface {
-  title: string,
-  description: string,
-  type: string,
-  link: string,
-  tags: string[]
-}
-interface AddContentFormProps {
-  closeContentWindow: Dispatch<SetStateAction<boolean>>;
-  fetchContents:(resData: { message: any; statusCode: number })=>void
-}
-const AddContentForm = ({ closeContentWindow,fetchContents }: AddContentFormProps) => {
+import { addContent } from '../redux/features/contentsSlice';
+import { useDispatch } from 'react-redux';
+import type { formInterface } from '../utils/types';
+import { useAddContentRequestMutation } from '../redux/api/contentApi';
+import MsgBlock from './shared/MsgBlock';
+
+const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch<SetStateAction<boolean>> }) => {
+  const dispatch = useDispatch()
+  const [addContentRequest, { isLoading, data, error }] = useAddContentRequestMutation();
   const defualtForm: formInterface = {
     title: "",
     description: "",
@@ -24,7 +19,6 @@ const AddContentForm = ({ closeContentWindow,fetchContents }: AddContentFormProp
     tags: []
   }
   const [form, setform] = useState(defualtForm)
-  const [responseMessage, setResponseMessage, MsgBlock, responseLoading, setResponseLoading, Loader] = useResponseMessage()
   function resetForm() {
     setform(defualtForm);
   }
@@ -37,35 +31,23 @@ const AddContentForm = ({ closeContentWindow,fetchContents }: AddContentFormProp
   ]
   const [Tags, setTags] = useState(tags);
   const handleSubmit = async () => {
-    setResponseLoading(true);
     try {
-      const headers = {
-        headers: {
-          token: localStorage.getItem('token')
-        }
-      }
-      const res = await axios.post('/v1/content', form, headers)
-      console.log(res)
-      setResponseMessage(p => ({ ...p, message: res.data.message, statusCode: res.status }));
+      const res = await addContentRequest(form).unwrap();
+      const newContent = res.content
+      dispatch(addContent(newContent))
       resetForm()
-      const resData = { message: res.data.message, statusCode: res.status }
-      fetchContents(resData)
       setTimeout(() => {
-        closeContentWindow(false)
+        setaddContentWindow(false)
       }, 300);
     }
     catch (error: any) {
-      const msg = error.response?.data?.message || "Something went wrong";
-      setResponseMessage(p => ({ ...p, message: msg, statusCode: error.response?.status || 500 }));
       console.log(error)
-    } finally {
-      setResponseLoading(false);
     }
   }
   return (
     <div className="addContentForm bg-white border-4 p-5 rounded-2xl w-1/2 translate-y-1/4 translate-x-1/2 relative flex flex-col items-center justify-center gap-1">
       <h1 className='font-bold text-3xl'>Enter Details of new Content</h1>
-      <MsgBlock />
+      <MsgBlock error={error} data={data} />
       <InputText name='title' label='Title' placeholder='Enter Content Title'
         value={form.title} setter={setform} />
       <InputText name='description' label='Description' placeholder='Enter Content description'
@@ -110,7 +92,7 @@ const AddContentForm = ({ closeContentWindow,fetchContents }: AddContentFormProp
         variant="primary"
         pIcon={<CircleFadingPlus />}
         sIcon={<Loader />}
-        disabled={responseLoading}
+        disabled={isLoading}
         onClick={handleSubmit}
       />
     </div>

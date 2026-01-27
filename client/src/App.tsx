@@ -10,16 +10,20 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { setUserDetails } from "./redux/features/userSlice"
 import SharedBrainPage from "./pages/SharedBrainPage"
+import { contentApi } from "./redux/api/contentApi"
+import { setContents } from "./redux/features/contentsSlice"
 
 const App = () => {
-  const { data: user, isLoading, error } = useGetUserQuery();
   const dispatch = useDispatch();
+  
+  const { data:contents } = contentApi.useFetchContentsQuery()
+  const { data: user, error } = useGetUserQuery();
 
-  // Sync RTK Query data to userSlice for components that use the slice
   useEffect(() => {
-    if (user) {
-      dispatch(setUserDetails(user));
-    }
+    contents&&dispatch(setContents(contents));
+  }, [contents, dispatch]);
+  useEffect(() => {
+    user&&dispatch(setUserDetails(user));
   }, [user, dispatch]);
 
   if (error) {
