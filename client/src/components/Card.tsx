@@ -8,6 +8,7 @@ import { useDeleteContentRequestMutation } from '../redux/api/contentApi'
 import { useDispatch } from 'react-redux'
 import { deleteContent } from '../redux/features/contentsSlice'
 import LinkType from './LinkType'
+import { setPublicPosts, setTotalPosts } from '../redux/features/userSlice'
 
 const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
   // console.log(content)
@@ -19,8 +20,18 @@ const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
     }] = useDeleteContentRequestMutation()
  
   const handleDelete = () => {
-    deleteContentRequest({ contentId:content._id })
-    dispatch(deleteContent(content._id))
+    const contentId = content._id;
+    const wasShared = content.shared;
+    deleteContentRequest({ contentId }).then(() => {
+      setTimeout(() => {
+        setConfirmOpen(false);
+      }, 1000);
+      dispatch(deleteContent(contentId))
+      dispatch(setTotalPosts(-1));
+      if(wasShared){
+          dispatch(setPublicPosts(wasShared ? -1 : 1));
+      }
+    })
   }
 
   return (

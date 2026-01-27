@@ -28,9 +28,12 @@ export const userSlice = createSlice({
         },
         setPublicPosts: (state, action: PayloadAction<number>) => {
             state.contentDetails.publicPosts += action.payload;
+        },
+        setTotalPosts: (state, action: PayloadAction<number>) => {
+            state.contentDetails.totalPosts += action.payload;
         }
     }
 })
 
-export const { setUserDetails, setUserName, setLogout, setPublicPosts } = userSlice.actions;
+export const { setUserDetails, setUserName, setLogout, setPublicPosts, setTotalPosts } = userSlice.actions;
 export default userSlice.reducer;

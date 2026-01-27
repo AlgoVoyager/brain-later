@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import type { formInterface } from '../utils/types';
 import { useAddContentRequestMutation } from '../redux/api/contentApi';
 import MsgBlock from './shared/MsgBlock';
+import { setTotalPosts } from '../redux/features/userSlice';
 
 const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch<SetStateAction<boolean>> }) => {
   const dispatch = useDispatch()
@@ -35,6 +36,7 @@ const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch
       const res = await addContentRequest(form).unwrap();
       const newContent = res.content
       dispatch(addContent(newContent))
+      dispatch(setTotalPosts(1))
       resetForm()
       setTimeout(() => {
         setaddContentWindow(false)
@@ -87,11 +89,10 @@ const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch
         ))}
       </div>
       <Button
-        text="Add Content"
+        text={isLoading?"Adding":"Add Content"}
         size="lg"
         variant="primary"
-        pIcon={<CircleFadingPlus />}
-        sIcon={<Loader />}
+        pIcon={isLoading?<Loader />:<CircleFadingPlus />}
         disabled={isLoading}
         onClick={handleSubmit}
       />
