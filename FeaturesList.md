@@ -6,14 +6,14 @@
 - Logout - done
 - Update profile - done
 - Delete profile 
-- Manage publically accessible notes 
+- Manage publically accessible notes
 
 ## Notes
 - Create note - done
 - Read note - done
 - Update note - done
 - Delete note - done
-- Share notes - 
+- Share notes - done
 
 ## Search
 - AI Search
@@ -22,6 +22,7 @@
 - Sort notes
 
 ## Misc
+- Validations
 - Dark mode
 - Light mode
 - Responsive design
