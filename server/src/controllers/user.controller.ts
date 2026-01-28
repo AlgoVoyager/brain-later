@@ -79,10 +79,20 @@ const signUpUser: RequestHandler = async (req, res) => {
 
 }
 const deleteUser: RequestHandler = async (req, res) => {
-    const userId = (req as any).userId;
-    await userModel.deleteOne({_id:userId});
-    await linkModel.deleteOne({userId});
-    res.json({message:"User Deleted Succesfully"})
+    try{
+        const userId = (req as any).userId;
+        const {password} = req.body;
+        if(!password) return res.status(400).json({message:"Password is required"})
+        const user = await userModel.findOne({_id:userId});
+        if(!user) return res.status(404).json({message:"User Not Found"})
+        const matchPassword = await bcryptjs.compare(password, user.password);
+        if(!matchPassword) return res.status(403).json({message:"Incorrect Password!"})
+        await userModel.deleteOne({_id:userId});
+        await linkModel.deleteOne({userId});
+        res.json({message:"User Deleted Succesfully"})
+    }catch(error){
+        res.status(501).json("Internal server error")
+    }
 }
 const changeUserFullName: RequestHandler = async (req, res) => {
     const userId = (req as any).userId;

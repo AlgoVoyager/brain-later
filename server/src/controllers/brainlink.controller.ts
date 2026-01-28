@@ -97,8 +97,36 @@ const updateShare: RequestHandler = async (req, res) => {
     }
 }
 
+const removeAllShared: RequestHandler = async (req, res) => {
+    try {
+        await linkModel.updateOne({
+            //@ts-ignore
+            userId: req.userId
+        }, {
+            $set: {
+                publicSharing: []
+            }
+        });
+        await contentModel.updateMany({
+            //@ts-ignore
+            userId: req.userId
+        }, {
+            $set: { shared: false }
+        });
+        res.json({
+            message: "All Content Unshared Successfully"
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(501).json({
+            message: "Content Share Toggle Failed"
+        });
+    }
+}
+
 export {
     getShare,
     updateShare,
-    shareContents
+    shareContents,
+    removeAllShared
 }
