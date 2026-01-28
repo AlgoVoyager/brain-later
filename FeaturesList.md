@@ -5,8 +5,8 @@
 - Login - done
 - Logout - done
 - Update profile - done
-- Delete profile 
-- Manage publically accessible notes
+- Delete profile - done
+- Manage publically accessible notes - done
 
 ## Notes
 - Create note - done
@@ -23,8 +23,7 @@
 
 ## Misc
 - Validations
-- Dark mode
-- Light mode
+- Theme - done
 - Responsive design
 - PWA
 - Offline support

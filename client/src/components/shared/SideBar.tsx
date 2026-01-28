@@ -62,9 +62,9 @@ const SideBar = () => {
                         {authRoutes[0]?.icon} {authRoutes[0].text}
                     </NavLink>
                     {/* Theme Toggle */}
-                    <div className="mt-auto">
+                    {/* <div className="mt-auto">
                         <ThemeToggle />
-                    </div>
+                    </div> */}
                     {/* {
                     token?<NavLink key={navlinks.length+1} to={authRoutes[0].href} className={({ isActive }) => `hover:text-blue-600 text-xl flex gap-3 items-center nlink ${isActive ? 'text-primary activeNavlink' : 'text-black inActiveNavlink'}`} >
                         {authRoutes[0]?.icon} {authRoutes[0].text}

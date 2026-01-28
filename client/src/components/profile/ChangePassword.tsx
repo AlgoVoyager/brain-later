@@ -49,23 +49,25 @@ const ChangePassword = () => {
     return (
         <>
             {/* Change Password */}
-            <div className="option-info ">
-                <h2 className='text-2xl font-semibold'>Change Password</h2>
-                <h4 className='opacity-60'>Forgot Password? or want to change it?</h4>
-            </div>
-            <div className="option-action flex flex-wrap items-center gap-2 relative">
-                <Button disabled={isLoading} variant={toggleChange ? 'secondary' : 'primary'} size={'lg'} text={toggleChange ? 'Cancel' : 'Change'} onClick={() => settoggleChange(p => !p)} />
-                {toggleChange && <>
-                    <input type="text" ref={oldPasswordRef} placeholder='Enter Old Password' id="password" name="password" className='bg-secondary text-primary rounded-xl p-3' />
-                    <input type="text" ref={newPasswordRef} placeholder='Enter New Password' id="password" name="password" className='bg-secondary text-primary rounded-xl p-3' />
-                    <Button disabled={isLoading} variant={'secondary'} size={'lg'} text={'Comfirm'} sIcon={<Check />} onClick={handlePasswordChange} />
-                </>}
+            <div className="account-setting-item col-span-2 flex items-center justify-between rounded-lg shadow">
+                <div className="option-info ">
+                    <h2 className='text-2xl font-semibold'>Change Password</h2>
+                    <h4 className='opacity-60'>Forgot Password? or want to change it?</h4>
+                </div>
+                <div className="option-action flex flex-wrap items-center gap-2 relative">
+                    <Button disabled={isLoading} variant={toggleChange ? 'secondary' : 'primary'} size={'lg'} text={toggleChange ? 'Cancel' : 'Change'} onClick={() => settoggleChange(p => !p)} customStyles='dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600 dark:hover:text-white' />
+                    {toggleChange && <>
+                        <input type="text" ref={oldPasswordRef} placeholder='Enter Old Password' id="password" name="password" className='bg-secondary text-primary dark:bg-slate-700 dark:text-white rounded-xl p-3' />
+                        <input type="text" ref={newPasswordRef} placeholder='Enter New Password' id="password" name="password" className='bg-secondary text-primary dark:bg-slate-700 dark:text-white rounded-xl p-3' />
+                        <Button disabled={isLoading} variant={'secondary'} size={'lg'} text={'Comfirm'} sIcon={isLoading?<Loader2 className='animate-spin'/>:<Check />} onClick={handlePasswordChange} customStyles='dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600 dark:hover:text-white' />
+                    </>}
 
-                {infoMessage.type !== "" &&
-                    <p onClick={(e) => e.currentTarget.remove()}
-                        className={`text-${infoMessage.type === "success" ? "green" : "red"}-500 hover:line-through absolute top-0 left-0 flex gap-2 items-center cursor-pointer`}
-                    >{infoMessage.message} <X />
-                </p>}
+                    {infoMessage.type !== "" &&
+                        <p onClick={(e) => e.currentTarget.remove()}
+                            className={`text-${infoMessage.type === "success" ? "green" : "red"}-500 hover:line-through absolute top-0 left-0 flex gap-2 items-center cursor-pointer`}
+                        >{infoMessage.message} <X />
+                    </p>}
+                </div>
             </div>
         </>
     )

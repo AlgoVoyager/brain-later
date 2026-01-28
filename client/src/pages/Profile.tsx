@@ -46,7 +46,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="Tabs flex gap-2 w-full bg-ternary dark:bg-ternary/10 px-5 py-3 flex-shrink-0">
+      <div className="account-page-tabs flex gap-2 w-full bg-ternary dark:bg-slate-700 px-5 py-3 flex-shrink-0">
         <Button variant={'primary'} size={'sm'}
           text={'Account Settings'}
           onClick={() => { }} />
