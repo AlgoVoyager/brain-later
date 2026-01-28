@@ -13,6 +13,7 @@ import SharedBrainPage from "./pages/SharedBrainPage"
 import { contentApi } from "./redux/api/contentApi"
 import { setContents } from "./redux/features/contentsSlice"
 import { useAppSelector } from "./utils/hooks"
+import About from "./pages/About"
 
 const App = () => {
   const { data: user, error } = useGetUserQuery();
@@ -23,6 +24,7 @@ const App = () => {
 
   useEffect(() => {
     contents && dispatch(setContents(contents));
+    console.log(contents)
   }, [contents, dispatch]);
   useEffect(() => {
     user && dispatch(setUserDetails(user));
@@ -48,6 +50,7 @@ const App = () => {
           <Route path="/" element={<SideBar />}>
             <Route index element={<HomePage />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />

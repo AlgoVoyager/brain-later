@@ -11,7 +11,6 @@ import LinkType from './LinkType'
 import { setPublicPosts, setTotalPosts } from '../redux/features/userSlice'
 
 const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
-  // console.log(content)
   const [confirmOpen, setConfirmOpen]  = useState(false);
   const dispatch = useDispatch();
   const [ deleteContentRequest, {
