@@ -11,7 +11,7 @@ const InputText = (props: InputProps) => {
         <div className='flex flex-col gap-2 w-full'>
             <label htmlFor={props.name} className='text-xl '>{props.label}</label>
             <input
-                className='px-4 py-2 bg-secondary/30 rounded-xl text-2xl placeholder:text-gray-500 text-primary'
+                className='px-4 py-2 bg-secondary/30 dark:bg-slate-700/30 rounded-xl text-2xl placeholder:text-gray-500 text-primary'
                 type="text"
                 name={props.name}
                 id={props.name}

@@ -47,7 +47,7 @@ const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch
     }
   }
   return (
-    <div className="addContentForm bg-white border-4 p-5 rounded-2xl w-1/2 translate-y-1/4 translate-x-1/2 relative flex flex-col items-center justify-center gap-1">
+    <div className="addContentForm bg-white dark:bg-slate-800/70 border-4 dark:border-slate-700 p-5 rounded-2xl w-1/2 translate-y-1/4 translate-x-1/2 relative flex flex-col items-center justify-center gap-1">
       <h1 className='font-bold text-3xl'>Enter Details of new Content</h1>
       <MsgBlock error={error} data={data} />
       <InputText name='title' label='Title' placeholder='Enter Content Title'
@@ -81,7 +81,7 @@ const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch
       </div>
       <div className="available-tags-container opacity-50 flex gap-2">
         {Tags.map((tag, key) => (
-          <div key={key} className=' bg-black/10 w-fit rounded-full text-sm px-2 py-1 flex gap-1 items-center cursor-pointer'
+          <div key={key} className=' bg-black/10 dark:bg-slate-700/70 w-fit rounded-full text-sm px-2 py-1 flex gap-1 items-center cursor-pointer'
             onClick={() => setform(prev => {
               if (prev.tags.includes(tag)) return prev;
               return { ...prev, tags: [...prev.tags, tag] }

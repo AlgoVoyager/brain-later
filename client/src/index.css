@@ -2,14 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.nlink{
+.nlink {
     width: 100%;
     padding: 10px 20px;
     border-radius: 20px 0 0 20px;
 }
 
-.activeNavlink{
+.activeNavlink {
     background-color: #E6E9ED;
+
     position: relative;
 }
 
@@ -38,28 +39,54 @@
     box-shadow: 0 10px 0 0 #E6E9ED;
 }
 
-.inActiveNavlink:hover{
+/* Dark mode styles for active navlink */
+:where(.dark *) .activeNavlink {
+    background-color: #334155;
+    /* slate-800 */
+}
+
+:where(.dark *) .activeNavlink::before {
+    box-shadow: 0 10px 0 0 #334155;
+    /* slate-800 */
+}
+
+:where(.dark *) .activeNavlink::after {
+    box-shadow: 0 10px 0 0 #334155;
+    /* slate-800 */
+}
+
+.inActiveNavlink:hover {
     position: relative;
     background-color: #f4f4f4;
     /* transition: all 0.1s ease-in; */
 }
-.addContentWindow{
+
+/* Dark mode styles for inactive navlink hover */
+:where(.dark *) .inActiveNavlink:hover {
+    background-color: #334155;
+    /* slate-700 */
+}
+
+.addContentWindow {
     @apply relative flex flex-col items-center justify-center z-50;
 }
-.expandAnimation{
+
+.expandAnimation {
     animation: expandAddWindow 0.2s ease-in-out forwards;
     z-index: 1000;
 }
 
-.confirm-share-window{
+.confirm-share-window {
     z-index: 1000;
     /* animation: expandShareWindow 0.2s ease-in-out forwards; */
     /* visibility: hidden; */
     /* animation: visibleAnimation  0.5s ease-in 0.2s forwards; */
 }
-.expandShareAnimation{
+
+.expandShareAnimation {
     animation: expandShareWindow 0.2s ease-in-out forwards;
 }
+
 @keyframes expandShareWindow {
     from {
         width: 10rem;
@@ -70,18 +97,20 @@
         border-radius: 70% 0px 100% 250%;
         /* border: 2px solid #f2f2f2; */
     }
-    to{
-       width: 40%;
-       height: 20vh;
-       backdrop-filter: blur(3px);
-       position: fixed;
-       background-color: #91959b6f ;
-       top: 30px;
-       right: 220px;
-       border-radius: 30px;
+
+    to {
+        width: 42%;
+        height: 20vh;
+        backdrop-filter: blur(3px);
+        position: fixed;
+        /* background-color: #91959b6f ; */
+        top: 30px;
+        right: 220px;
+        border-radius: 30px;
         border: none;
     }
 }
+
 @keyframes expandAddWindow {
     from {
         width: 10rem;
@@ -92,18 +121,19 @@
         border-radius: 70% 0px 100% 250%;
         /* border: 2px solid #f2f2f2; */
     }
-    to{
-       width: 100vw;
-       height: 100vh;
-       backdrop-filter: blur(7px);
-       position: fixed;
-       background-color: #91959b7b ;
-       /* right: -41px;
+
+    to {
+        width: 100vw;
+        height: 100vh;
+        backdrop-filter: blur(7px);
+        position: fixed;
+        /* background-color: #91959b7b ; */
+        /* right: -41px;
        top: -71px; */
-       top: 0;
-       right: 0;
-       /* content: normal; */
-       border-radius: 0px 0px 0px 0px;
+        top: 0;
+        right: 0;
+        /* content: normal; */
+        border-radius: 0px 0px 0px 0px;
         border: none;
         display: flex;
         flex-direction: column;
@@ -112,26 +142,28 @@
     }
 }
 
-.addContentForm{
+.addContentForm {
     visibility: hidden;
-    animation: visibleAnimation  0.5s ease-in 0.2s forwards;
+    animation: visibleAnimation 0.5s ease-in 0.2s forwards;
 }
 
 @keyframes visibleAnimation {
-    from{
+    from {
         visibility: hidden;
     }
-    to{
+
+    to {
         visibility: visible;
     }
-    
+
 }
 
 /* Loading skeleton animtion */
-.loadingSkeleton{
+.loadingSkeleton {
     background: linear-gradient(130deg, #f0f0f040 25%, #e0e0e040 50%, #f0f0f040 75%);
     background-size: 200% 100%;
     animation: skeleton-animation 3s infinite linear;
+
     & .s-box {
         @apply size-60 border-4;
         border-radius: 20px;
@@ -145,6 +177,7 @@
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }

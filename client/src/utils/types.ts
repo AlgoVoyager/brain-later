@@ -41,7 +41,7 @@ interface SharedData {
 }
 interface ButtonProps {
   variant: "primary" | "secondary";
-  size: "sm" | "md" | "lg" | "xl";
+  size: "xs" | "sm" | "md" | "lg" | "xl";
   text: string;
   pIcon?: ReactElement;
   sIcon?: ReactElement;

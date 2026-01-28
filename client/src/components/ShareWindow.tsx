@@ -30,10 +30,10 @@ const ShareWindow = ({ contentId, shared }: { contentId: string, shared: boolean
   }
   return (
     <div onClick={() => setConfirmOpen(p => !p)}
-      className={` ${shared ? "bg-secondary" : "hover:bg-secondary"} relative hover:translate-y-1 hover:z-50  duration-100 rounded-full cursor-pointer p-2 ${shared && "bg-secondary"}`}>
+      className={` ${shared ? "bg-secondary dark:bg-primary" : "hover:bg-secondary dark:hover:bg-primary"} relative hover:translate-y-1 hover:z-50  duration-100 rounded-full cursor-pointer p-2 `}>
 
       {confirmOpen && (
-        <div className="absolute confirm-share-window -top-7 -right-10  group-hover:rotate-6 bg-white border shadow-lg rounded-lg p-3  flex flex-col items-center gap-2"
+        <div className="absolute confirm-share-window -top-7 -right-24  group-hover:rotate-6 bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-lg rounded-lg p-3  flex flex-col items-center gap-2"
           onClick={(e) => e.stopPropagation()} >
           {data && data.message + (!shared ? " & Link Revoked!" : " & Link Copied!" )}
           {/* @ts-ignore */}
@@ -57,7 +57,7 @@ const ShareWindow = ({ contentId, shared }: { contentId: string, shared: boolean
           </div>
         </div>
       )}
-      <Share2 />
+      <Share2 size={20} />
     </div>
   )
 }
