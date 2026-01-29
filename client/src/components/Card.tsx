@@ -10,14 +10,14 @@ import { deleteContent } from '../redux/features/contentsSlice'
 import LinkType from './LinkType'
 import { setPublicPosts, setTotalPosts } from '../redux/features/userSlice'
 
-const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
-  const [confirmOpen, setConfirmOpen]  = useState(false);
+const Card = ({ content, shared }: { content: CardProps, shared?: boolean }) => {
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const dispatch = useDispatch();
-  const [ deleteContentRequest, {
-      isLoading: deleteLoading, 
-      error: deleteErrorMessage, 
-    }] = useDeleteContentRequestMutation()
- 
+  const [deleteContentRequest, {
+    isLoading: deleteLoading,
+    error: deleteErrorMessage,
+  }] = useDeleteContentRequestMutation()
+
   const handleDelete = () => {
     const contentId = content._id;
     const wasShared = content.shared;
@@ -27,19 +27,21 @@ const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
       }, 1000);
       dispatch(deleteContent(contentId))
       dispatch(setTotalPosts(-1));
-      if(wasShared){
-          dispatch(setPublicPosts(wasShared ? -1 : 1));
+      if (wasShared) {
+        dispatch(setPublicPosts(wasShared ? -1 : 1));
       }
     })
   }
 
   return (
-    <div className=' dark:bg-slate-800 text-black dark:text-white dark:border-slate-700 flex flex-col justify-between gap-2 items-start hover:shadow-lg shadow-none duration-200 bg-white lg:p-4 p-2 lg:min-h-72 lg:max-w-1/3 max-w-1/2  lg:min-w-1/4 border-4 rounded-xl'>
+    <div className='dark:bg-slate-800 text-black dark:text-white dark:border-slate-700 
+    flex flex-col justify-between gap-2 items-start hover:shadow-lg shadow-none duration-200 
+    bg-white lg:p-4 p-2 lg:min-h-72 lg:max-w-2xl max-w-full border-4 rounded-xl'>
       <div className="w-full flex flex-col items-start gap-2">
         <div className="upperSec flex items-center justify-between w-full">
           <div className="bg-secondary/50 text-primary dark:bg-slate-600 dark:border-primary dark:text-secondary border rounded-full px-2 py-1">{content.type}</div>
           {!shared && <div className="contentOptions flex gap-2 items-center">
-            <ShareWindow contentId={content._id} shared={content.shared}  />
+            <ShareWindow contentId={content._id} shared={content.shared} />
             <div className='group relative hover:bg-red-300 dark:hover:bg-red-800 hover:translate-y-1 hover:rotate-6 duration-200 rounded-full cursor-pointer p-2'
               onClick={() => setConfirmOpen(!confirmOpen)}>
               <Trash2 size={20} />
@@ -69,8 +71,8 @@ const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
             </div>
           </div>}
         </div>
-        <h2 className='lg:text-4xl text-xl font-semibold '>{content.title}</h2>
-        <p className="text-justify lg:text-lg text-sm">{content.description}</p>
+        <h2 className='lg:text-4xl break-words text-xl font-semibold '>{content.title}</h2>
+        <p className="text-justify lg:text-lg text-sm break-words">{content.description}</p>
         <LinkType link={content.link} type={content.type} />
       </div>
       <div className="w-full flex flex-col gap-2 ">
