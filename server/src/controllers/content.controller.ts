@@ -25,7 +25,7 @@ const createContent: RequestHandler = async (req, res) => {
             }
             tagIds.push(existingTag._id);
         }
-        const content = await contentModel.create({
+        const content = await (await contentModel.create({
             title,
             description,
             link,
@@ -33,7 +33,7 @@ const createContent: RequestHandler = async (req, res) => {
             type,
             //@ts-ignore
             userId: req.userId
-        })
+        })).populate('tags')
         res.json({
             content,
             message: "Content Created Succesfully!"
