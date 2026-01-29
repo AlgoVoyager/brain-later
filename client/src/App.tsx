@@ -14,6 +14,7 @@ import { contentApi } from "./redux/api/contentApi"
 import { setContents } from "./redux/features/contentsSlice"
 import { useAppSelector } from "./utils/hooks"
 import About from "./pages/About"
+import Feedback from "./pages/Feedback"
 
 const App = () => {
   const { data: user, error } = useGetUserQuery();
@@ -51,6 +52,7 @@ const App = () => {
             <Route index element={<HomePage />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/about" element={<About />} />
+            <Route path="/feedback" element={<Feedback />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />

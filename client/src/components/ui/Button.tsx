@@ -16,11 +16,13 @@ const Button = (props: ButtonProps) => {
     }
 
     return (
-        <button className={ `${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${props.disabled&&"opacity-15"}  border dark:border-slate-700 rounded-xl flex items-center gap-2 hover:opacity-80 duration-150 hover:shadow active:opacity-40 `} 
+        <button
+            type={props.type || 'button'}
+            className={`${props?.customStyles} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${props.disabled && "opacity-15"}  border dark:border-slate-700 rounded-xl flex items-center gap-2 hover:opacity-80 duration-150 hover:shadow active:opacity-40 `}
             onClick={props.onClick}
             disabled={props.disabled}>
             {props?.pIcon}
-            {props.text} 
+            {props.text}
             {props?.sIcon}
         </button>
     )

@@ -20,7 +20,7 @@ interface formInterface {
 }
 
 interface SharedData {
-  _id:string;
+  _id: string;
   hash: string;
   userId: {
     fullname: string;
@@ -34,7 +34,7 @@ interface SharedData {
     type: string;
     tags: string[];
     userId: string;
-    shared:boolean;
+    shared: boolean;
     __v: number;
   }[];
   __v: number;
@@ -45,7 +45,8 @@ interface ButtonProps {
   text: string;
   pIcon?: ReactElement;
   sIcon?: ReactElement;
-  onClick: () => void;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
   customStyles?: string;
   disabled?: boolean
 }
@@ -57,7 +58,7 @@ interface CardProps {
   type: string;
   tags: string[];
   userId: string;
-  shared:boolean;
+  shared: boolean;
   __v: number;
 }
 

@@ -20,7 +20,7 @@ const Profile = () => {
   return (
     <div className='w-full h-full flex flex-col overflow-hidden'>
       <div className="userDetails flex gap-8 p-6 items-center flex-shrink-0">
-        <div className="profileBrainLogo bg-secondary p-6 rounded-full text-primary border-primary border-4">
+        <div className="profileBrainLogo bg-primary p-6 rounded-full text-secondary border-secondary/50 border-4">
           <Brain size={100} />
         </div>
         <div className='space-y-3'>

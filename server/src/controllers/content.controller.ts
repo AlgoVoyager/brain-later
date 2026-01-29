@@ -71,7 +71,7 @@ const getContent: RequestHandler = async (req, res) => {
     const userId = req.userId;
     const contents = await contentModel.find({
         userId
-    }).populate("userId", "firstname").populate('tags')
+    }).populate('tags').populate('userId', 'fullname')
 
     res.json(contents);
 }

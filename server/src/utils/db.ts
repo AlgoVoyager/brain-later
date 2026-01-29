@@ -49,15 +49,26 @@ const Link = new mongoose.Schema({
     }
 })
 
+const Feedback = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    message: { type: String, required: true }
+})
 const userModel = mongoose.model('User', User);
 const contentModel = mongoose.model('Content', Content);
 const tagModel = mongoose.model('Tag', Tag);
 const linkModel = mongoose.model('Link', Link);
+const feedbackModel = mongoose.model('Feedback', Feedback);
 
 export {
     userModel,
     contentModel,
     tagModel,
     linkModel,
+    feedbackModel,
     connectDB
 }

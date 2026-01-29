@@ -13,8 +13,8 @@ const SideBar = () => {
             icon: <Home />
         },
         {
-            text: "Contact",
-            href: "/contact",
+            text: "Feedback",
+            href: "/feedback",
             icon: <Contact />
         },
         {
