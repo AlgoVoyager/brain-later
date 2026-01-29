@@ -94,13 +94,13 @@ const Feedback = () => {
   };
 
   return (
-    <main className='w-full h-full px-16  justify-center dark:bg-slate-900 dark:text-white'>
-      <div className="about-hero flex justify-between items-center  h-full gap-10">
-        <div className="about-hero-content space-y-3 w-2/3">
-          <h1 className='text-5xl font-bold'>Contact | Brain Later</h1>
-          <p className='text-xl'>If you have any questions or suggestions, please feel free to contact us.</p>
+    <main className='w-full max-h-full overflow-y-auto lg:px-16 px-4 justify-center dark:bg-slate-900 dark:text-white'>
+      <div className="about-hero overflow-y-auto flex lg:flex-row flex-col justify-between items-center lg:gap-10 gap-5">
+        <div className="about-hero-content space-y-3 lg:w-2/3  w-full">
+          <h1 className='lg:text-5xl text-3xl text-center font-bold'>Feedback | Brain Later</h1>
+          <p className='lg:text-xl text-lg text-center'>If you have any questions or suggestions, please feel free to contact us.</p>
 
-          <form onSubmit={handleSubmit} className='space-y-4 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg'>
+          <form onSubmit={handleSubmit} className='space-y-4 bg-white dark:bg-slate-800 lg:p-6 p-4 rounded-xl shadow-lg'>
             <div className='flex flex-col gap-2'>
               <label htmlFor="name" className='text-lg font-semibold'>Name</label>
               <input
@@ -137,7 +137,7 @@ const Feedback = () => {
                 value={form.message}
                 onChange={handleInputChange}
                 placeholder='Enter your message or feedback'
-                rows={6}
+                rows={4}
                 className='px-4 py-3 bg-secondary/30 dark:bg-slate-700/50 rounded-lg text-lg placeholder:text-gray-500 dark:placeholder:text-gray-400 text-primary dark:text-white border border-transparent focus:border-primary dark:focus:border-secondary outline-none transition-colors resize-none'
                 disabled={isLoading}
               />
@@ -165,10 +165,10 @@ const Feedback = () => {
 
         </div>
 
-        <div className="flex flex-col gap-6 items-center justify-center w-1/3">
-        <div className="flex flex-col gap-6 items-center justify-center ">
+        <div className="flex flex-col lg:gap-6 gap-2 items-center justify-center lg:w-1/3 w-full">
+        <div className="flex flex-col lg:gap-6 gap-2 items-center justify-center ">
             <div className="profileBrainLogo bg-primary p-6 rounded-full text-secondary border-secondary/50 border-4">
-              <Brain size={100} />
+              <Brain size={40} />
             </div>
             <h1 className='text-4xl font-bold'>Brain Later</h1>
         </div>

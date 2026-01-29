@@ -18,28 +18,28 @@ const Profile = () => {
     if (!token) navigate('/login')
   }, [])
   return (
-    <div className='w-full h-full flex flex-col overflow-hidden'>
-      <div className="userDetails flex gap-8 p-6 items-center flex-shrink-0">
-        <div className="profileBrainLogo bg-primary p-6 rounded-full text-secondary border-secondary/50 border-4">
-          <Brain size={100} />
+    <div className='w-full max-h-full h-full overflow-y-auto flex flex-col'>
+      <div className="userDetails flex lg:flex-row flex-col lg:gap-8 gap-4 lg:p-6 p-4 items-center flex-shrink-0">
+        <div className="profileBrainLogo bg-primary lg:p-6 p-2 rounded-full text-secondary border-secondary/50 border-4">
+          <Brain className="lg:size-20 size-10"/>
         </div>
-        <div className='space-y-3'>
+        <div className='space-y-3 lg:text-left text-center'>
           <h2 className="fullname font-semibold text-3xl">{user.fullname}</h2>
           <div className="email text-xl">{user.email}</div>
           <CopyHashLink />
         </div>
-        <div className="contentDetails flex flex-col items-center gap-2">
+        <div className="contentDetails flex lg:flex-col flex-row items-center gap-2">
 
-          <div className="cDetail bg-secondary dark:bg-secondary/20 w-72 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
+          <div className="cDetail bg-secondary dark:bg-secondary/20 lg:w-72 w-36 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
             <span className='text-3xl font-bold text-primary dark:text-secondary'>{user.contentDetails.totalPosts}</span>
             <span className='text-primary dark:text-secondary'>Total Posts</span>
           </div>
           <div className='flex gap-2'>
-            <div className="cDetail bg-secondary dark:bg-secondary/20 w-36 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
+            <div className="cDetail bg-secondary dark:bg-secondary/20 lg:w-36 w-28 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
               <span className='text-3xl font-bold text-primary dark:text-secondary'>{user.contentDetails.totalPosts - user.contentDetails.publicPosts}</span>
               <span className='text-primary dark:text-secondary'>Private Posts</span>
             </div>
-            <div className="cDetail bg-secondary dark:bg-secondary/20 w-36 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
+            <div className="cDetail bg-secondary dark:bg-secondary/20 lg:w-36 w-28 h-20 rounded-lg flex flex-col gap-1 items-center justify-center">
               <span className='text-3xl font-bold text-primary dark:text-secondary'>{user.contentDetails.publicPosts}</span>
               <span className='text-primary dark:text-secondary'>Shared Posts</span>
             </div>
@@ -54,7 +54,7 @@ const Profile = () => {
           text={'Shared Ideas'}
           onClick={() => { }} />
       </div>
-      <div className="account-settings flex-1 overflow-hidden">
+      <div className="account-settings flex-1 overflow-y-auto">
         <AccountSettings />
       </div>
     </div>

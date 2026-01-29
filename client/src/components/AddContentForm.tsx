@@ -47,7 +47,7 @@ const AddContentForm = ({ setaddContentWindow }: { setaddContentWindow: Dispatch
     }
   }
   return (
-    <div className="addContentForm bg-white dark:bg-slate-800/70 border-4 dark:border-slate-700 p-5 rounded-2xl w-1/2 translate-y-1/4 translate-x-1/2 relative flex flex-col items-center justify-center gap-1">
+    <div className="addContentForm bg-white dark:bg-slate-800/70 border-4 dark:border-slate-700 p-5 rounded-2xl lg:w-1/2 w-full translate-y-1/4 lg:translate-x-1/2 translate-x-0 relative flex flex-col items-center justify-center gap-1">
       <h1 className='font-bold text-3xl'>Enter Details of new Content</h1>
       <MsgBlock error={error} data={data} />
       <InputText name='title' label='Title' placeholder='Enter Content Title'

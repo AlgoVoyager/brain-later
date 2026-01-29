@@ -34,7 +34,7 @@ const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
   }
 
   return (
-    <div className=' dark:bg-slate-800 text-black dark:text-white dark:border-slate-700 flex flex-col justify-between gap-2 items-start hover:shadow-lg shadow-none duration-200 bg-white p-4 min-h-72 max-w-1/3  min-w-1/4 border-4 rounded-xl'>
+    <div className=' dark:bg-slate-800 text-black dark:text-white dark:border-slate-700 flex flex-col justify-between gap-2 items-start hover:shadow-lg shadow-none duration-200 bg-white lg:p-4 p-2 lg:min-h-72 lg:max-w-1/3 max-w-1/2  lg:min-w-1/4 border-4 rounded-xl'>
       <div className="w-full flex flex-col items-start gap-2">
         <div className="upperSec flex items-center justify-between w-full">
           <div className="bg-secondary/50 text-primary dark:bg-slate-600 dark:border-primary dark:text-secondary border rounded-full px-2 py-1">{content.type}</div>
@@ -69,14 +69,14 @@ const Card = ({content, shared}: {content: CardProps, shared?: boolean}) => {
             </div>
           </div>}
         </div>
-        <h2 className='text-4xl font-semibold'>{content.title}</h2>
-        <p className="text-justify">{content.description}</p>
+        <h2 className='lg:text-4xl text-xl font-semibold '>{content.title}</h2>
+        <p className="text-justify lg:text-lg text-sm">{content.description}</p>
         <LinkType link={content.link} type={content.type} />
       </div>
       <div className="w-full flex flex-col gap-2 ">
         <div className="tags flex flex-wrap  gap-2">
           {(content?.tags).map((tag, key) => (
-            <div key={key} className="bg-secondary/50 text-primary text-sm border rounded-full px-2 py-1">
+            <div key={key} className="bg-secondary/50 text-primary lg:text-sm text-xs border rounded-full lg:px-2 px-1 lg:py-1 py-0">
               #{
                 //@ts-ignore
                 tag.name}</div>

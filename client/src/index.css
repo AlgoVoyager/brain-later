@@ -10,11 +10,13 @@
 
 .activeNavlink {
     background-color: #E6E9ED;
+    @apply rounded-full lg:rounded-r-none;
 
     position: relative;
 }
 
 .activeNavlink::before {
+    @apply lg:absolute lg:block hidden;
     content: "";
     position: absolute;
     top: -50px;
@@ -27,6 +29,7 @@
 }
 
 .activeNavlink::after {
+    @apply lg:absolute lg:block hidden;
     content: "";
     transform: rotateX(180deg);
     position: absolute;
@@ -56,6 +59,8 @@
 }
 
 .inActiveNavlink:hover {
+    @apply rounded-full lg:rounded-r-none;
+
     position: relative;
     background-color: #f4f4f4;
     /* transition: all 0.1s ease-in; */
@@ -84,6 +89,7 @@
 }
 
 .expandShareAnimation {
+    @apply lg:w-2/5 md:w-3/5 w-full lg:top-8 lg:text-left text-center top-20 lg:right-56 right-0 shadow-lg dark:shadow-slate-700;
     animation: expandShareWindow 0.2s ease-in-out forwards;
 }
 
@@ -99,13 +105,9 @@
     }
 
     to {
-        width: 42%;
         height: 20vh;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(5px);
         position: fixed;
-        /* background-color: #91959b6f ; */
-        top: 30px;
-        right: 220px;
         border-radius: 30px;
         border: none;
     }
@@ -165,13 +167,25 @@
     animation: skeleton-animation 3s infinite linear;
 
     & .s-box {
-        @apply size-60 border-4;
+        @apply size-60 border-4 ;
         border-radius: 20px;
         background: linear-gradient(130deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
         background-size: 200% 100%;
         animation: skeleton-animation 3s infinite linear;
     }
 }
+:where(.dark *) .loadingSkeleton {
+    background: linear-gradient(130deg, #65656540 25%, #65656540 50%, #65656540 75%);
+    background-size: 200% 100%;
+    animation: skeleton-animation 3s infinite linear;
+    & .s-box {
+        @apply w-40 h-52 border-4 border-gray-700 ;
+        background: linear-gradient(130deg, #94949440 25%, #71717140 50%, #94949440 75%);
+        background-size: 200% 100%;
+        animation: skeleton-animation 3s infinite linear;
+    }
+}
+
 
 @keyframes skeleton-animation {
     0% {

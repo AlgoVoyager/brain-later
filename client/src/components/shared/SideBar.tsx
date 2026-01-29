@@ -46,20 +46,21 @@ const SideBar = () => {
         },
     ]
     return (
-        <div className='flex '>
-            <div className="sidebar w-1/5 h-screen flex flex-col gap-3 py-10 pl-2 border-r-4 dark:bg-slate-800 dark:border-slate-700">
-                <div className="logo mx-auto flex gap-2 items-center dark:text-white">
-                    <Brain size={40} />
-                    <h1 className='text-4xl font-bold'>Brain Later</h1>
+        <div className='flex flex-col lg:flex-row h-screen'>
+            <div className="sidebar bg-blue-500  w-full md:w-full lg:w-1/5 lg:h-screen h-fit flex lg:flex-col gap-3 lg:py-10 py-4 lg:pl-2 lg:pr-0 pl-1 border-r-4 dark:bg-slate-800 dark:border-slate-700 items-center">
+                <div className="logo mx-auto flex flex-col md:flex-row  gap-2 items-center dark:text-white">
+                    <Brain className='lg:size-16 md:size-7 size-5' />
+                    <h1 className=' lg:text-4xl md:text-md sm:text-sm text-xs font-bold'>Brain Later</h1>
                 </div>
-                <nav className="navlinks w-full flex flex-col gap-10 pl-10 pt-10 mx-auto items-start">
+                <nav className="navlinks lg:w-full flex lg:flex-col lg:gap-10 lg:pl-10 lg:pr-0 lg:pt-10 mx-auto items-start">
                     {navlinks.map((link, key) => (
                         <NavLink key={key} to={link.href} className={({ isActive }) => `hover:text-blue-600 dark:hover:text-blue-400 text-xl flex gap-3 items-center nlink ${isActive ? 'text-primary activeNavlink' : 'text-black dark:text-gray-300 inActiveNavlink'}`} >
-                            {link?.icon} {link.text}
+                            {link?.icon} 
+                           <span className='lg:block hidden'>{link.text}</span>
                         </NavLink>
                     ))}
                     <NavLink to={authRoutes[0].href} className={({ isActive }) => `hover:text-blue-600 dark:hover:text-blue-400 text-xl flex gap-3 items-center nlink ${isActive ? 'text-primary activeNavlink' : 'text-black dark:text-gray-300 inActiveNavlink'}`} >
-                        {authRoutes[0]?.icon} {authRoutes[0].text}
+                        {authRoutes[0]?.icon} <span className='lg:block hidden'>{authRoutes[0].text}</span>
                     </NavLink>
                     {/* Theme Toggle */}
                     {/* <div className="mt-auto">
@@ -75,7 +76,7 @@ const SideBar = () => {
                     } */}
                 </nav>
             </div>
-            <div className={`main w-4/5 h-screen flex items-center justify-center ${theme === "dark" ? "bg-slate-900 text-secondary" : "bg-slate-100"}`}>
+            <div className={`main lg:w-4/5 md:w-full w-full lg:h-screen max-h-full h-full flex lg:flex-col items-center justify-center ${theme === "dark" ? "bg-slate-900 text-secondary" : "bg-slate-100"}`}>
                 <Outlet />
             </div>
         </div>

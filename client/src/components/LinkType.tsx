@@ -21,7 +21,7 @@ const LinkType = ({link, type}:{link:string, type:string}) => {
       //   </div>)
       //   break;
       default:
-        return <a href={link} target='_blank' className='text-primary underline hover:text-primary/50'>{link}</a>
+        return <a href={link} target='_blank' className='text-primary lg:text-lg text-sm underline hover:text-primary/50'>{link.substring(0, 40) }{link.length > 40 && "..."}</a>
         break;
     }
   }
