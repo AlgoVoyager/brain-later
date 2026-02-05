@@ -18,6 +18,9 @@ interface formInterface {
   link: string,
   tags: string[]
 }
+interface updateFormInterface extends formInterface {
+  contentId: string;
+}
 
 interface SharedData {
   _id: string;
@@ -70,5 +73,6 @@ export type {
   CardProps,
   ContentType,
   SharedData,
-  formInterface
+  formInterface,
+  updateFormInterface
 }

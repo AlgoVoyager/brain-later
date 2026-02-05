@@ -50,15 +50,35 @@ const updateContent: RequestHandler = async (req, res) => {
     }
     try {
         const { title, description, tags, type, link, contentId } = req.body;
-        const content = await contentModel.findOne({
-            _id: contentId
-        })
+        if (!contentId) {
+            return res.status(406).json({ message: "Missing Content" })
+        }
+        let tagIds = [];
+        for (const tag of tags) {
+            let existingTag = await tagModel.findOne({ name: tag });
+            if (!existingTag) {
+                existingTag = await tagModel.create({ name: tag });
+            }
+            tagIds.push(existingTag._id);
+        }
+        const content = await contentModel.findOneAndUpdate({
+            _id: contentId,
+            //@ts-ignore
+            userId: req.userId
+        }, {
+            title,
+            description,
+            link,
+            tags: tagIds,
+            type
+        }, {
+            new: true
+        }).populate('tags');
         if (!content) {
             return res.status(404).json({ message: "Content Doesn't Exist!" })
         }
-
-
         res.json({
+            content,
             message: "Content Updated Succesfully!"
         })
     } catch (error) {

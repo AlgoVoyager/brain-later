@@ -1,5 +1,5 @@
 
-import { Trash2 } from 'lucide-react'
+import { Pencil, Trash2, XCircle } from 'lucide-react'
 import { useState } from 'react'
 import type { CardProps } from '../utils/types'
 import Button from './ui/Button'
@@ -9,9 +9,11 @@ import { useDispatch } from 'react-redux'
 import { deleteContent } from '../redux/features/contentsSlice'
 import LinkType from './LinkType'
 import { setPublicPosts, setTotalPosts } from '../redux/features/userSlice'
+import EditContentForm from './EditContentForm'
 
 const Card = ({ content, shared }: { content: CardProps, shared?: boolean }) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
   const dispatch = useDispatch();
   const [deleteContentRequest, {
     isLoading: deleteLoading,
@@ -42,6 +44,10 @@ const Card = ({ content, shared }: { content: CardProps, shared?: boolean }) => 
           <div className="bg-secondary/50 text-primary dark:bg-slate-600 dark:border-primary dark:text-secondary border rounded-full px-2 py-1">{content.type}</div>
           {!shared && <div className="contentOptions flex gap-2 items-center">
             <ShareWindow contentId={content._id} shared={content.shared} />
+            <div className='group relative hover:bg-blue-300 dark:hover:bg-blue-800 hover:translate-y-1 hover:rotate-6 duration-200 rounded-full cursor-pointer p-2'
+              onClick={() => setEditOpen(true)}>
+              <Pencil size={20} />
+            </div>
             <div className='group relative hover:bg-red-300 dark:hover:bg-red-800 hover:translate-y-1 hover:rotate-6 duration-200 rounded-full cursor-pointer p-2'
               onClick={() => setConfirmOpen(!confirmOpen)}>
               <Trash2 size={20} />
@@ -85,6 +91,12 @@ const Card = ({ content, shared }: { content: CardProps, shared?: boolean }) => 
           ))}
         </div>
       </div>
+      {editOpen && (
+        <div className={`addContentWindow ${editOpen ? 'expandAnimation' : ''}`}>
+          <XCircle onClick={() => setEditOpen(false)} className='bg-white dark:bg-slate-700 dark:text-secondary rounded-bl-full flex items-center justify-center rounded-full absolute right-12 lg:top-4 top-24' size={50} />
+          <EditContentForm content={content} setEditWindow={setEditOpen} />
+        </div>
+      )}
     </div>
   )
 }
