@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { CardProps, formInterface } from '../../utils/types';
+import type { CardProps, formInterface, updateFormInterface } from '../../utils/types';
 export const contentApi = createApi({
     reducerPath: 'contentApi',
     baseQuery: fetchBaseQuery({
@@ -31,6 +31,13 @@ export const contentApi = createApi({
                 body: form
             }),
         }),
+        updateContentRequest: builder.mutation<{message:string,content:CardProps}, updateFormInterface>({
+            query: (form) => ({
+                url: '/content',
+                method: 'PUT',
+                body: form
+            }),
+        }),
         deleteContentRequest: builder.mutation<{message:string}, {contentId: string}>({
             query: ({contentId}) => ({
                 url: '/content/' + contentId,
@@ -56,6 +63,7 @@ export const contentApi = createApi({
 export const { 
     useToggleShareContentMutation, 
     useAddContentRequestMutation, 
+    useUpdateContentRequestMutation,
     useDeleteContentRequestMutation, 
     useFetchContentsQuery, 
     useRemoveAllSharedMutation 
